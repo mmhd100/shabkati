@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>تسجيل الدخول - شبكتي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary-color: #0D47A1;
+      --secondary-color: #1E88E5;
+      --success-color: #4CAF50;
+      --error-color: #f44336;
+      --light-gray: #f5f5f5;
+      --medium-gray: #e0e0e0;
+      --text-color: #333;
+      --light-blue: #e3f2fd;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(135deg, #0D47A1, #1E88E5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    
+    .login-container {
+      display: flex;
+      max-width: 900px;
+      width: 100%;
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    }
+    
+    .welcome-section {
+      flex: 1;
+      background: linear-gradient(to bottom right, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .welcome-section h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    
+    .welcome-section p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      max-width: 400px;
+    }
+    
+    .logo {
+      font-size: 3rem;
+      margin-bottom: 30px;
+      background: rgba(255, 255, 255, 0.2);
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .features {
+      text-align: right;
+      margin-top: 30px;
+      width: 100%;
+    }
+    
+    .feature {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+    }
+    
+    .feature i {
+      margin-left: 10px;
+      font-size: 1.2rem;
+    }
+    
+    .login-section {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .login-box {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    h2 {
+      margin-bottom: 30px;
+      color: var(--primary-color);
+      text-align: center;
+      font-size: 2rem;
+      position: relative;
+    }
+    
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: var(--primary-color);
+      border-radius: 2px;
+    }
+    
+    .input-group {
+      position: relative;
+      margin-bottom: 25px;
+    }
+    
+    .input-group i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #777;
+      font-size: 18px;
+    }
+    
+    input {
+      width: 100%;
+      padding: 15px 15px 15px 45px;
+      border: 2px solid var(--medium-gray);
+      border-radius: 10px;
+      font-size: 16px;
+      font-family: 'Cairo', sans-serif;
+      transition: all 0.3s ease;
+    }
+    
+    input:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.2);
+      outline: none;
+    }
+    
+    .error-message {
+      color: var(--error-color);
+      font-size: 14px;
+      margin-top: 5px;
+      display: none;
+    }
+    
+    .password-container {
+      position: relative;
+    }
+    
+    .toggle-password {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #777;
+    }
+    
+    button {
+      width: 100%;
+      background: var(--primary-color);
+      color: white;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Cairo', sans-serif;
+      margin-top: 10px;
+      box-shadow: 0 4px 8px rgba(13, 71, 161, 0.3);
+    }
+    
+    button:hover {
+      background: #0b3d91;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(13, 71, 161, 0.4);
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    .switch {
+      text-align: center;
+      margin-top: 25px;
+      color: var(--text-color);
+      cursor: pointer;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    
+    .switch:hover {
+      color: var(--primary-color);
+    }
+    
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 25px 0;
+    }
+    
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid var(--medium-gray);
+    }
+    
+    .divider span {
+      padding: 0 15px;
+      color: #777;
+      font-size: 14px;
+    }
+    
+    .social-login {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .social-btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .facebook {
+      background: #3b5998;
+    }
+    
+    .google {
+      background: #dd4b39;
+    }
+    
+    .twitter {
+      background: #1DA1F2;
+    }
+    
+    .social-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .remember-forgot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+    
+    .remember {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .remember input {
+      width: auto;
+      margin: 0;
+    }
+    
+    .forgot-password {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
+    
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #777;
+      font-size: 14px;
+    }
+    
+    .footer a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+    
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    
+    .success-message {
+      background: rgba(76, 175, 80, 0.1);
+      color: var(--success-color);
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+      display: none;
+    }
+    
+    /* إخفاء حقل الاسم في وضع تسجيل الدخول */
+    .hidden {
+      display: none;
+    }
+    
+    /* تحسينات للشاشات الصغيرة */
+    @media (max-width: 768px) {
+      .login-container {
+        flex-direction: column;
+      }
+      
+      .welcome-section {
+        padding: 30px 20px;
+      }
+      
+      .login-section {
+        padding: 30px 20px;
+      }
+      
+      .features {
+        display: none;
+      }
+    }
+    
+    /* رسوم متحركة */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .login-box > * {
+      animation: fadeIn 0.5s ease forwards;
+    }
+    
+    .login-box h2 { animation-delay: 0.1s; }
+    .input-group:nth-child(2) { animation-delay: 0.2s; }
+    .input-group:nth-child(3) { animation-delay: 0.3s; }
+    .input-group:nth-child(4) { animation-delay: 0.4s; }
+    button { animation-delay: 0.5s; }
+    .switch { animation-delay: 0.6s; }
+    
+    /* مؤشر التحميل */
+    .loader {
+      display: none;
+      width: 30px;
+      height: 30px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top: 3px solid #fff;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="welcome-section">
+      <div class="logo">
+        <i class="fas fa-users"></i>
+      </div>
+      <h1>مرحباً بك في شبكتي</h1>
+      <p>انضم إلى مجتمعنا المتنامي واستمتع بمزايا التواصل مع الأصدقاء وزملاء العمل</p>
+      
+      <div class="features">
+        <div class="feature">
+          <i class="fas fa-check-circle"></i>
+          <span>تواصل مع الأصدقاء وزملاء العمل</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-check-circle"></i>
+          <span>شارك اللحظات المميزة مع من تحب</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-check-circle"></i>
+          <span>اكتشف محتوى مثيرًا يناسب اهتماماتك</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="login-section">
+      <div class="login-box">
+        <h2 id="form-title">إنشاء حساب</h2>
+        
+        <div class="success-message" id="success-message">
+          <i class="fas fa-check-circle"></i> تم إنشاء حسابك بنجاح!
+        </div>
+        
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input type="text" id="name" placeholder="الاسم الكامل" />
+          <div class="error-message" id="name-error"></div>
+        </div>
+        
+        <div class="input-group">
+          <i class="fas fa-envelope"></i>
+          <input type="text" id="contact" placeholder="البريد الإلكتروني أو رقم الجوال" />
+          <div class="error-message" id="contact-error"></div>
+        </div>
+        
+        <div class="input-group">
+          <div class="password-container">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="password" placeholder="كلمة المرور" />
+            <span class="toggle-password" id="toggle-password">
+              <i class="fas fa-eye"></i>
+            </span>
+          </div>
+          <div class="error-message" id="password-error"></div>
+        </div>
+        
+        <div class="remember-forgot hidden" id="remember-section">
+          <div class="remember">
+            <input type="checkbox" id="remember">
+            <label for="remember">تذكرني</label>
+          </div>
+          <a href="#" class="forgot-password">نسيت كلمة المرور؟</a>
+        </div>
+        
+        <button id="action-btn" onclick="handleSubmit()">إنشاء حساب</button>
+        <div class="loader" id="loader"></div>
+        
+        <div class="divider">
+          <span>أو</span>
+        </div>
+        
+        <div class="social-login">
+          <div class="social-btn facebook">
+            <i class="fab fa-facebook-f"></i>
+          </div>
+          <div class="social-btn google">
+            <i class="fab fa-google"></i>
+          </div>
+          <div class="social-btn twitter">
+            <i class="fab fa-twitter"></i>
+          </div>
+        </div>
+        
+        <div class="switch" onclick="toggleMode()" id="toggle-text">لديك حساب؟ تسجيل الدخول</div>
+        
+        <div class="footer">
+          <p>باستخدامك لشبكتي، فأنت توافق على <a href="#">شروط الخدمة</a> و<a href="#">سياسة الخصوصية</a></p>
+          <p>© 2023 شبكتي. جميع الحقوق محفوظة.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // حالة النموذج (تسجيل دخول أو إنشاء حساب)
+    let isLogin = false;
+    
+    // عناصر DOM
+    const formTitle = document.getElementById('form-title');
+    const actionBtn = document.getElementById('action-btn');
+    const toggleText = document.getElementById('toggle-text');
+    const nameInput = document.getElementById('name');
+    const nameError = document.getElementById('name-error');
+    const contactInput = document.getElementById('contact');
+    const contactError = document.getElementById('contact-error');
+    const passwordInput = document.getElementById('password');
+    const passwordError = document.getElementById('password-error');
+    const rememberSection = document.getElementById('remember-section');
+    const togglePassword = document.getElementById('toggle-password');
+    const successMessage = document.getElementById('success-message');
+    const loader = document.getElementById('loader');
+    
+    // التبديل بين وضع تسجيل الدخول وإنشاء حساب
+    function toggleMode() {
+      isLogin = !isLogin;
+      
+      formTitle.textContent = isLogin ? 'تسجيل الدخول' : 'إنشاء حساب';
+      actionBtn.textContent = isLogin ? 'تسجيل الدخول' : 'إنشاء حساب';
+      toggleText.textContent = isLogin ? 'ليس لديك حساب؟ أنشئ حساب' : 'لديك حساب؟ تسجيل الدخول';
+      
+      // إظهار/إخفاء حقل الاسم
+      nameInput.parentElement.classList.toggle('hidden', isLogin);
+      
+      // إظهار/إخفاء قسم "تذكرني"
+      rememberSection.classList.toggle('hidden', !isLogin);
+      
+      // مسح رسائل الخطأ
+      clearErrors();
+    }
+    
+    // إظهار/إخفاء كلمة المرور
+    togglePassword.addEventListener('click', function() {
+      const passwordField = passwordInput;
+      const eyeIcon = this.querySelector('i');
+      
+      if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+        eyeIcon.classList.remove('fa-eye');
+        eyeIcon.classList.add('fa-eye-slash');
+      } else {
+        passwordField.type = 'password';
+        eyeIcon.classList.remove('fa-eye-slash');
+        eyeIcon.classList.add('fa-eye');
+      }
+    });
+    
+    // مسح رسائل الخطأ
+    function clearErrors() {
+      nameError.style.display = 'none';
+      contactError.style.display = 'none';
+      passwordError.style.display = 'none';
+    }
+    
+    // التحقق من صحة البيانات
+    function validateForm() {
+      let isValid = true;
+      clearErrors();
+      
+      // التحقق من الاسم (في حالة التسجيل فقط)
+      if (!isLogin) {
+        const name = nameInput.value.trim();
+        if (!name) {
+          nameError.textContent = 'يرجى إدخال الاسم الكامل';
+          nameError.style.display = 'block';
+          isValid = false;
+        } else if (name.length < 3) {
+          nameError.textContent = 'الاسم يجب أن يكون على الأقل 3 أحرف';
+          nameError.style.display = 'block';
+          isValid = false;
+        }
+      }
+      
+      // التحقق من البريد الإلكتروني/رقم الجوال
+      const contact = contactInput.value.trim();
+      if (!contact) {
+        contactError.textContent = 'يرجى إدخال البريد الإلكتروني أو رقم الجوال';
+        contactError.style.display = 'block';
+        isValid = false;
+      } else if (!isValidContact(contact)) {
+        contactError.textContent = 'البريد الإلكتروني أو رقم الجوال غير صحيح';
+        contactError.style.display = 'block';
+        isValid = false;
+      }
+      
+      // التحقق من كلمة المرور
+      const password = passwordInput.value.trim();
+      if (!password) {
+        passwordError.textContent = 'يرجى إدخال كلمة المرور';
+        passwordError.style.display = 'block';
+        isValid = false;
+      } else if (password.length < 6) {
+        passwordError.textContent = 'كلمة المرور يجب أن تكون على الأقل 6 أحرف';
+        passwordError.style.display = 'block';
+        isValid = false;
+      }
+      
+      return isValid;
+    }
+    
+    // التحقق من صحة البريد الإلكتروني أو رقم الجوال
+    function isValidContact(contact) {
+      // تحقق من البريد الإلكتروني
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      
+      // تحقق من رقم الجوال (أرقام فقط، 10-15 رقم)
+      const phoneRegex = /^\d{10,15}$/;
+      
+      return emailRegex.test(contact) || phoneRegex.test(contact);
+    }
+    
+    // معالجة إرسال النموذج
+    function handleSubmit() {
+  if (!validateForm()) return;
+  
+      // عرض مؤشر التحميل
+      actionBtn.style.display = 'none';
+      loader.style.display = 'block';
+      
+      setTimeout(() => {
+        const name = nameInput.value.trim();
+        const contact = contactInput.value.trim();
+        const password = passwordInput.value.trim();
+        
+        // محاكاة عملية التسجيل/الدخول
+        if (isLogin) {
+          handleLogin(contact, password);
+        } else {
+          handleSignup(name, contact, password);
+        }
+        
+        // إخفاء مؤشر التحميل
+        loader.style.display = 'none';
+        actionBtn.style.display = 'block';
+      }, 1000);
+    }
+    
+    // معالجة تسجيل الدخول
+    function handleLogin(contact, password) {
+      let users = JSON.parse(localStorage.getItem('users') || '[]');
+      const user = users.find(u => u.emailOrPhone === contact && u.password === password);
+      
+      if (!user) {
+        showError('بيانات الدخول غير صحيحة');
+        return;
+      }
+      
+      // حفظ بيانات المستخدم الحالي
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      
+      // توجيه المستخدم إلى الصفحة الرئيسية
+      window.location.href = 'index.html';
+    }
+    
+    // معالجة إنشاء حساب
+    function handleSignup(name, contact, password) {
+      let users = JSON.parse(localStorage.getItem('users') || '[]');
+      
+      // التحقق من وجود حساب مسبق
+      const exists = users.find(u => u.emailOrPhone === contact);
+      if (exists) {
+        showError('الحساب موجود مسبقًا');
+        return;
+      }
+      
+      // إنشاء مستخدم جديد
+      const newUser = {
+        name,
+        emailOrPhone: contact,
+        password,
+        avatar: 'https://i.pravatar.cc/150?img=' + (Math.floor(Math.random() * 70) + 1),
+        createdAt: new Date().toISOString()
+      };
+      
+      // حفظ المستخدم الجديد
+      users.push(newUser);
+      localStorage.setItem('users', JSON.stringify(users));
+      localStorage.setItem('currentUser', JSON.stringify(newUser));
+      
+      // عرض رسالة النجاح
+      successMessage.style.display = 'block';
+      
+      // التبديل إلى وضع تسجيل الدخول بعد 3 ثوان
+      setTimeout(() => {
+        successMessage.style.display = 'none';
+        toggleMode(); // التبديل إلى وضع تسجيل الدخول بعد إنشاء الحساب
+        
+        // مسح حقول الإدخال
+        nameInput.value = '';
+        contactInput.value = '';
+        passwordInput.value = '';
+      }, 3000);
+    }
+    
+    // إظهار رسالة خطأ
+    function showError(message) {
+      alert(message);
+    }
+    
+    // تمكين الضغط على Enter لإرسال النموذج
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        handleSubmit();
+      }
+    });
+    
+    // تهيئة الصفحة عند التحميل
+    window.onload = function() {
+      // إخفاء قسم "تذكرني" في البداية
+      rememberSection.classList.add('hidden');
+      
+      // التحقق من وجود مستخدم مسجل بالفعل
+      const currentUser = localStorage.getItem('currentUser');
+      if (currentUser) {
+        window.location.href = 'index.html';
+      }
+    };
+  </script>
+</body>
+</html>

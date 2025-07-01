@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الملف الشخصي - شبكتي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #0D47A1;
+      --secondary-color: #1E88E5;
+      --light-blue: #e3f2fd;
+      --gray-bg: #f0f2f5;
+      --dark-text: #2d3748;
+      --light-text: #718096;
+      --border-color: #e2e8f0;
+      --success-color: #48bb78;
+      --warning-color: #ecc94b;
+      --danger-color: #e53e3e;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Cairo', sans-serif;
+    }
+    
+    body {
+      background-color: var(--gray-bg);
+      color: var(--dark-text);
+      min-height: 100vh;
+    }
+    
+    /* التصميم العلوي */
+    .top-bar {
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    .logo i {
+      font-size: 1.8rem;
+    }
+    
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+    }
+    
+    .nav-icon {
+      font-size: 1.2rem;
+      color: white;
+      text-decoration: none;
+    }
+    
+    /* محتوى الملف الشخصي */
+    .profile-container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+    
+    /* بطاقة الملف الشخصي */
+    .profile-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      position: relative;
+    }
+    
+    .cover-photo {
+      height: 250px;
+      background: linear-gradient(135deg, #0D47A1, #64B5F6);
+      position: relative;
+    }
+    
+    .profile-info {
+      padding: 30px;
+      text-align: center;
+      margin-top: -80px;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .profile-avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin: 0 auto 20px;
+    }
+    
+    .profile-name {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--dark-text);
+    }
+    
+    .profile-bio {
+      color: var(--light-text);
+      max-width: 600px;
+      margin: 0 auto 20px;
+      line-height: 1.6;
+    }
+    
+    .profile-meta {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+    
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--light-text);
+    }
+    
+    .meta-item i {
+      color: var(--primary-color);
+    }
+    
+    /* الإحصائيات */
+    .profile-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 20px;
+      background: var(--light-blue);
+      border-radius: 12px;
+      margin: 0 auto 30px;
+      max-width: 700px;
+    }
+    
+    .stat-item {
+      text-align: center;
+      padding: 10px 20px;
+    }
+    
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-bottom: 5px;
+    }
+    
+    .stat-label {
+      font-size: 1rem;
+      color: var(--light-text);
+    }
+    
+    /* أزرار الإجراءات */
+    .profile-actions {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    
+    .profile-btn {
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: none;
+    }
+    
+    .btn-primary {
+      background: var(--primary-color);
+      color: white;
+      box-shadow: 0 4px 8px rgba(13, 71, 161, 0.2);
+    }
+    
+    .btn-primary:hover {
+      background: #0b3d91;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(13, 71, 161, 0.3);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+    }
+    
+    .btn-outline:hover {
+      background: var(--light-blue);
+    }
+    
+    .btn-follow {
+      background: var(--success-color);
+      color: white;
+    }
+    
+    .btn-unfollow {
+      background: #f5f5f5;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+    
+    /* أقسام المحتوى */
+    .profile-content {
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 25px;
+      margin-top: 30px;
+    }
+    
+    @media (max-width: 992px) {
+      .profile-content {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* قسم المشاركات */
+    .posts-section {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .section-title i {
+      color: var(--secondary-color);
+    }
+    
+    .post {
+      background: var(--gray-bg);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+    
+    .post:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .post-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .post-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-left: 15px;
+    }
+    
+    .post-user {
+      flex: 1;
+    }
+    
+    .post-user-name {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    
+    .post-time {
+      color: var(--light-text);
+      font-size: 0.9rem;
+    }
+    
+    .post-content {
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+    
+    .post-image {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+    
+    .post-stats {
+      display: flex;
+      justify-content: space-between;
+      padding-top: 15px;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    .post-stat {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--light-text);
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    
+    .post-stat:hover {
+      color: var(--primary-color);
+    }
+    
+    /* نظام المتابعة */
+    .follow-section {
+      background: white;
+      border-radius: 16px;
+      padding: 25px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .follow-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: 15px;
+    }
+    
+    .tab-btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s;
+      font-weight: 600;
+    }
+    
+    .tab-btn.active {
+      border-bottom-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+    
+    .follow-content {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
+    .follow-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .follow-item img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-left: 10px;
+    }
+    
+    .follow-info {
+      flex: 1;
+    }
+    
+    .follow-name {
+      font-weight: bold;
+      margin-bottom: 3px;
+    }
+    
+    .follow-bio {
+      font-size: 12px;
+      color: #777;
+    }
+    
+    .follow-btn {
+      padding: 6px 12px;
+      border-radius: 15px;
+      border: none;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.3s;
+    }
+    
+    .follow-btn.follow {
+      background-color: var(--primary-color);
+      color: white;
+    }
+    
+    .follow-btn.unfollow {
+      background-color: #f5f5f5;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+    
+    .follow-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+    
+    .view-all {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    
+    .view-all:hover {
+      text-decoration: underline;
+    }
+    
+    /* التذييل */
+    .footer {
+      text-align: center;
+      padding: 20px;
+      color: var(--light-text);
+      background: white;
+      margin-top: 40px;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    /* رسوم متحركة */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .profile-info, .posts-section, .follow-section {
+      animation: fadeIn 0.6s ease forwards;
+    }
+    
+    .profile-info { animation-delay: 0.1s; }
+    .posts-section { animation-delay: 0.2s; }
+    .follow-section { animation-delay: 0.3s; }
+    
+    /* تحسينات للجوال */
+    @media (max-width: 768px) {
+      .profile-stats {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .profile-actions {
+        flex-direction: column;
+      }
+      
+      .profile-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- شريط التنقل العلوي -->
+  <div class="top-bar">
+    <div class="logo">
+      <i class="fas fa-users"></i>
+      <span>شبكتي</span>
+    </div>
+    <div class="user-menu">
+      <a href="index.html" class="nav-icon" title="الصفحة الرئيسية">
+        <i class="fas fa-home"></i>
+      </a>
+      <a href="create-post.html" class="nav-icon" title="إنشاء مشاركة">
+        <i class="fas fa-plus"></i>
+      </a>
+      <a href="settings.html" class="nav-icon" title="الإعدادات">
+        <i class="fas fa-cog"></i>
+      </a>
+      <img id="current-avatar" class="user-avatar" src="" alt="صورة المستخدم">
+    </div>
+  </div>
+  
+  <!-- محتوى الملف الشخصي -->
+  <div class="profile-container">
+    <!-- بطاقة الملف الشخصي -->
+    <div class="profile-card">
+      <div class="cover-photo"></div>
+      
+      <div class="profile-info">
+        <img id="profile-avatar" class="profile-avatar" src="" alt="صورة الحساب">
+        <h1 id="profile-name" class="profile-name">محمد أحمد</h1>
+        <p id="profile-bio" class="profile-bio">مطور ويب ومصمم واجهات مستخدم، مهتم بالتكنولوجيا والتصميم. أحب مشاركة المعرفة والتعلم المستمر.</p>
+        
+        <div class="profile-meta">
+          <div class="meta-item">
+            <i class="fas fa-envelope"></i>
+            <span id="profile-email">mohamed@example.com</span>
+          </div>
+          <div class="meta-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span id="profile-location">الرياض، السعودية</span>
+          </div>
+          <div class="meta-item">
+            <i class="fas fa-briefcase"></i>
+            <span id="profile-job">مطور ويب في شركة التقنية</span>
+          </div>
+        </div>
+        
+        <!-- الإحصائيات -->
+        <div class="profile-stats">
+          <div class="stat-item">
+            <div class="stat-value" id="postCount">124</div>
+            <div class="stat-label">المشاركات</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="followerCount">587</div>
+            <div class="stat-label">المتابعون</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="followingCount">245</div>
+            <div class="stat-label">الملاحقون</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="likeCount">2.4K</div>
+            <div class="stat-label">الإعجابات</div>
+          </div>
+        </div>
+        
+        <!-- أزرار الإجراءات -->
+        <div class="profile-actions">
+          <button class="profile-btn btn-primary" onclick="location.href='settings.html'">
+            <i class="fas fa-edit"></i> تعديل الملف الشخصي
+          </button>
+          <button class="profile-btn btn-outline">
+            <i class="fas fa-share-alt"></i> مشاركة الملف
+          </button>
+          <button id="followBtn" class="profile-btn btn-follow">
+            <i class="fas fa-user-plus"></i> متابعة
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- محتوى الملف الشخصي -->
+    <div class="profile-content">
+      <!-- قسم المشاركات -->
+      <div class="posts-section">
+        <h2 class="section-title">
+          <i class="fas fa-newspaper"></i>
+          أحدث المشاركات
+        </h2>
+        
+        <!-- مشاركة 1 -->
+        <div class="post">
+          <div class="post-header">
+            <img id="post-avatar" class="post-avatar" src="" alt="صورة المستخدم">
+            <div class="post-user">
+              <div id="post-user-name" class="post-user-name">محمد أحمد</div>
+              <div class="post-time">منذ 3 ساعات</div>
+            </div>
+          </div>
+          
+          <div class="post-content">
+            <p>شاركت اليوم في مؤتمر تطوير الويب وتعلمت تقنيات جديدة في مجال React.js. كان المؤتمر مليئًا بالمعلومات القيمة والورش العملية المفيدة. أنصح كل مطور ويب بحضور المؤتمر القادم!</p>
+          </div>
+          
+          <div class="post-stats">
+            <div class="post-stat">
+              <i class="fas fa-heart"></i>
+              <span>124 إعجاب</span>
+            </div>
+            <div class="post-stat">
+              <i class="fas fa-comment"></i>
+              <span>24 تعليق</span>
+            </div>
+            <div class="post-stat">
+              <i class="fas fa-share"></i>
+              <span>مشاركة</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- مشاركة 2 -->
+        <div class="post">
+          <div class="post-header">
+            <img id="post-avatar2" class="post-avatar" src="" alt="صورة المستخدم">
+            <div class="post-user">
+              <div id="post-user-name2" class="post-user-name">محمد أحمد</div>
+              <div class="post-time">منذ يومين</div>
+            </div>
+          </div>
+          
+          <div class="post-content">
+            <p>تم إطلاق الإصدار الجديد من مشروعي المفتوح المصدر "DesignSystem" الذي يساعد المطورين على بناء واجهات مستخدم متسقة وجميلة بسرعة. يمكنكم تجربته وإبداء ملاحظاتكم!</p>
+          </div>
+          
+          <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="مشروع DesignSystem" class="post-image">
+          
+          <div class="post-stats">
+            <div class="post-stat">
+              <i class="fas fa-heart"></i>
+              <span>342 إعجاب</span>
+            </div>
+            <div class="post-stat">
+              <i class="fas fa-comment"></i>
+              <span>47 تعليق</span>
+            </div>
+            <div class="post-stat">
+              <i class="fas fa-share"></i>
+              <span>مشاركة</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- قسم المتابعة -->
+      <div class="follow-section">
+        <h2 class="section-title">
+          <i class="fas fa-user-friends"></i>
+          نظام المتابعة
+        </h2>
+        
+        <div class="follow-tabs">
+          <button class="tab-btn active" onclick="showFollowTab('followers')">المتابعون</button>
+          <button class="tab-btn" onclick="showFollowTab('following')">الملاحقون</button>
+        </div>
+        
+        <div id="followContent" class="follow-content">
+          <!-- سيتم ملؤه ديناميكياً -->
+        </div>
+        
+        <a href="#" class="view-all">عرض الكل</a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- تذييل الصفحة -->
+  <div class="footer">
+    <p>© 2023 شبكتي. جميع الحقوق محفوظة.</p>
+    <p>شروط الاستخدام | سياسة الخصوصية | مركز المساعدة</p>
+  </div>
+  
+  <script>
+    // تهيئة بيانات المستخدم
+    document.addEventListener('DOMContentLoaded', function() {
+      // الحصول على بيانات المستخدم من localStorage
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+      const profileUser = JSON.parse(localStorage.getItem('profileUser') || '{}');
+      
+      if (!user) {
+        alert('يرجى تسجيل الدخول أولاً');
+        window.location.href = 'login.html';
+        return;
+      }
+      
+      // إذا كان المستخدم الحالي هو صاحب الملف، نخفي زر المتابعة
+      const followBtn = document.getElementById('followBtn');
+      if (user.email === profileUser.email) {
+        followBtn.style.display = 'none';
+      } else {
+        // تحقق من حالة المتابعة
+        const following = JSON.parse(localStorage.getItem('following') || '{}');
+        const userFollowing = following[user.email] || [];
+        
+        if (userFollowing.includes(profileUser.email)) {
+          followBtn.innerHTML = '<i class="fas fa-user-minus"></i> إلغاء المتابعة';
+          followBtn.classList.remove('btn-follow');
+          followBtn.classList.add('btn-unfollow');
+        }
+      }
+      
+      // تعبئة بيانات المستخدم في الصفحة
+      const avatarUrl = profileUser.avatar || 'https://i.pravatar.cc/200';
+      document.getElementById('profile-avatar').src = avatarUrl;
+      document.getElementById('current-avatar').src = user.avatar || 'https://i.pravatar.cc/200';
+      document.getElementById('post-avatar').src = avatarUrl;
+      document.getElementById('post-avatar2').src = avatarUrl;
+      
+      document.getElementById('profile-name').textContent = profileUser.name || 'مستخدم جديد';
+      document.getElementById('post-user-name').textContent = profileUser.name || 'مستخدم جديد';
+      document.getElementById('post-user-name2').textContent = profileUser.name || 'مستخدم جديد';
+      
+      document.getElementById('profile-email').textContent = profileUser.email || 'بريد إلكتروني غير محدد';
+      document.getElementById('profile-bio').textContent = profileUser.bio || 'مرحبًا! أنا عضو جديد في شبكتي.';
+      document.getElementById('profile-location').textContent = profileUser.location || 'غير محدد';
+      document.getElementById('profile-job').textContent = profileUser.job || 'غير محدد';
+      
+      // تعبئة الإحصائيات
+      const posts = JSON.parse(localStorage.getItem('posts') || '[]');
+      const userPosts = posts.filter(p => p.user && p.user.email === profileUser.email);
+      document.getElementById('postCount').textContent = userPosts.length;
+      
+      // إحصائيات المتابعة
+      const followers = JSON.parse(localStorage.getItem('followers') || '{}');
+      const userFollowers = followers[profileUser.email] || [];
+      document.getElementById('followerCount').textContent = userFollowers.length;
+      
+      const following = JSON.parse(localStorage.getItem('following') || '{}');
+      const userFollowing = following[profileUser.email] || [];
+      document.getElementById('followingCount').textContent = userFollowing.length;
+      
+      // تحميل قسم المتابعين
+      showFollowTab('followers');
+      
+      // إضافة مستمع الحدث لزر المتابعة
+      followBtn.addEventListener('click', toggleFollow);
+    });
+    
+    // تبديل تبويبات المتابعة
+    function showFollowTab(tabName) {
+      // تحديث التبويبات النشطة
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      // تنشيط التبويب المحدد
+      if (tabName === 'followers') {
+        document.querySelectorAll('.tab-btn')[0].classList.add('active');
+        loadFollowers();
+      } else if (tabName === 'following') {
+        document.querySelectorAll('.tab-btn')[1].classList.add('active');
+        loadFollowing();
+      }
+    }
+    
+    // تحميل قائمة المتابعين
+    function loadFollowers() {
+      const contentDiv = document.getElementById('followContent');
+      const profileUser = JSON.parse(localStorage.getItem('profileUser') || '{}');
+      const allUsers = JSON.parse(localStorage.getItem('users') || '[]');
+      const followers = JSON.parse(localStorage.getItem('followers') || '{}');
+      const userFollowers = followers[profileUser.email] || [];
+      
+      const followerUsers = allUsers.filter(user => 
+        userFollowers.includes(user.email)
+      );
+      
+      if (followerUsers.length === 0) {
+        contentDiv.innerHTML = '<p style="padding:10px; text-align:center;">لا يوجد متابعون حتى الآن.</p>';
+        return;
+      }
+      
+      contentDiv.innerHTML = followerUsers.map(user => {
+        return `
+          <div class="follow-item">
+            <img src="${user.avatar || 'https://i.pravatar.cc/40?img=0'}" 
+                 alt="${user.name}" 
+                 onerror="this.src='https://i.pravatar.cc/40?img=0'; this.onerror=null;">
+            <div class="follow-info">
+              <div class="follow-name">${user.name}</div>
+              <div class="follow-bio">${user.bio || 'مستخدم في شبكتي'}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    // تحميل قائمة الملاحقين
+    function loadFollowing() {
+      const contentDiv = document.getElementById('followContent');
+      const profileUser = JSON.parse(localStorage.getItem('profileUser') || '{}');
+      const allUsers = JSON.parse(localStorage.getItem('users') || '[]');
+      const following = JSON.parse(localStorage.getItem('following') || '{}');
+      const userFollowing = following[profileUser.email] || [];
+      
+      const followingUsers = allUsers.filter(user => 
+        userFollowing.includes(user.email)
+      );
+      
+      if (followingUsers.length === 0) {
+        contentDiv.innerHTML = '<p style="padding:10px; text-align:center;">لا تتابع أي مستخدم حتى الآن.</p>';
+        return;
+      }
+      
+      contentDiv.innerHTML = followingUsers.map(user => {
+        return `
+          <div class="follow-item">
+            <img src="${user.avatar || 'https://i.pravatar.cc/40?img=0'}" 
+                 alt="${user.name}" 
+                 onerror="this.src='https://i.pravatar.cc/40?img=0'; this.onerror=null;">
+            <div class="follow-info">
+              <div class="follow-name">${user.name}</div>
+              <div class="follow-bio">${user.bio || 'مستخدم في شبكتي'}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    // متابعة أو إلغاء متابعة المستخدم
+    function toggleFollow() {
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+      const profileUser = JSON.parse(localStorage.getItem('profileUser') || '{}');
+      
+      const following = JSON.parse(localStorage.getItem('following') || '{}');
+      const followers = JSON.parse(localStorage.getItem('followers') || '{}');
+      
+      if (!following[user.email]) {
+        following[user.email] = [];
+      }
+      
+      const followBtn = document.getElementById('followBtn');
+      
+      // تحقق إذا كان المستخدم يتابع صاحب الملف
+      const index = following[user.email].indexOf(profileUser.email);
+      
+      if (index === -1) {
+        // متابعة المستخدم
+        following[user.email].push(profileUser.email);
+        followBtn.innerHTML = '<i class="fas fa-user-minus"></i> إلغاء المتابعة';
+        followBtn.classList.remove('btn-follow');
+        followBtn.classList.add('btn-unfollow');
+        
+        // إضافة المستخدم الحالي كمتابع للمستخدم الآخر
+        if (!followers[profileUser.email]) {
+          followers[profileUser.email] = [];
+        }
+        followers[profileUser.email].push(user.email);
+        
+        alert(`بدأت متابعة ${profileUser.name}`);
+      } else {
+        // إلغاء المتابعة
+        following[user.email].splice(index, 1);
+        followBtn.innerHTML = '<i class="fas fa-user-plus"></i> متابعة';
+        followBtn.classList.remove('btn-unfollow');
+        followBtn.classList.add('btn-follow');
+        
+        // إزالة المستخدم الحالي من متابعي المستخدم الآخر
+        if (followers[profileUser.email]) {
+          const followerIndex = followers[profileUser.email].indexOf(user.email);
+          if (followerIndex !== -1) {
+            followers[profileUser.email].splice(followerIndex, 1);
+          }
+        }
+        
+        alert(`ألغيت متابعة ${profileUser.name}`);
+      }
+      
+      // تحديث التخزين المحلي
+      localStorage.setItem('following', JSON.stringify(following));
+      localStorage.setItem('followers', JSON.stringify(followers));
+      
+      // تحديث الإحصائيات
+      const userFollowers = followers[profileUser.email] || [];
+      document.getElementById('followerCount').textContent = userFollowers.length;
+      
+      const userFollowing = following[user.email] || [];
+      document.getElementById('followingCount').textContent = userFollowing.length;
+    }
+    
+    // محاكاة الإعجاب بالمشاركة
+    document.querySelectorAll('.post-stat').forEach(stat => {
+      stat.addEventListener('click', function() {
+        if (this.querySelector('.fa-heart')) {
+          const heart = this.querySelector('.fa-heart');
+          if (heart.classList.contains('fas')) {
+            heart.classList.remove('fas');
+            heart.classList.add('far');
+          } else {
+            heart.classList.remove('far');
+            heart.classList.add('fas');
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

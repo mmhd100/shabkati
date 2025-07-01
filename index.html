@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>شبكتي - الصفحة الرئيسية</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+  .logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.logo-icon {
+  width: 30px;
+  height: 30px;
+  position: relative;
+}
+
+.globe {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #08306B; /* لون أغمق قليلاً */
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.2);
+}
+
+.grid {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(to right, rgba(255,255,255,0.3) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.3) 1px, transparent 1px);
+  background-size: 10px 10px;
+}
+
+.grid.vertical {
+  transform: rotate(45deg);
+}
+      .back-button {
+      position: absolute;
+      left: 15px;
+      top: 15px;
+      color: white;
+      font-size: 1.2rem;
+      z-index: 1000;
+    }
+    .loading-indicator {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      font-size: 1.1rem;
+    }
+    .error-message {
+      color: #f44336;
+      padding: 10px;
+      text-align: center;
+      margin: 10px;
+      border-radius: 8px;
+      background-color: #ffebee;
+    }
+    * {
+      box-sizing: border-box;
+      font-family: 'Cairo', sans-serif;
+      margin: 0;
+      padding: 0;
+      transition: all 0.3s ease;
+    }
+    body {
+      background-color: #f5f7fa;
+      color: #333;
+    }
+    .top-bar {
+      background-color: #0D47A1;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 20px;
+      gap: 15px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+    }
+    .top-bar .logo {
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .top-bar .actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-grow: 1;
+      min-width: 0;
+    }
+    .top-bar input[type="search"] {
+      padding: 8px 12px;
+      border-radius: 20px;
+      border: none;
+      flex-grow: 1;
+      min-width: 100px;
+      transition: box-shadow 0.3s;
+    }
+    .top-bar input[type="search"]:focus {
+      box-shadow: 0 0 0 2px rgba(13, 71, 161, 0.3);
+      outline: none;
+    }
+    .top-bar .chat-btn {
+      background-color: #08306B;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .top-bar .chat-btn:hover {
+      background-color: #062c5a;
+      transform: translateY(-2px);
+    }
+    .nav-bar {
+      background-color: white;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      font-size: 22px;
+      color: #0D47A1;
+      position: relative;
+      z-index: 900;
+    }
+    .nav-bar span {
+      cursor: pointer;
+      padding: 5px 10px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+    .nav-bar span:hover {
+      background-color: #e0e7ff;
+      transform: scale(1.1);
+    }
+    .post-trigger-bar {
+      background-color: white;
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      margin: 10px;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .post-trigger-bar:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .post-trigger-bar img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-left: 10px;
+      object-fit: cover;
+      border: 2px solid #0D47A1;
+      transition: transform 0.3s;
+    }
+    .post-trigger-bar img:hover {
+      transform: scale(1.05);
+    }
+    .post-trigger-bar a {
+      flex-grow: 1;
+      background-color: #e0e7ff;
+      border: none;
+      padding: 12px;
+      border-radius: 25px;
+      text-align: center;
+      cursor: pointer;
+      color: #333;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+    .post-trigger-bar a:hover {
+      background-color: #d0d7e8;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .filter-section {
+      background-color: white;
+      margin: 10px;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: box-shadow 0.3s;
+    }
+    .filter-section:hover {
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    .filter-section select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+      transition: border-color 0.3s;
+      cursor: pointer;
+      font-family: 'Cairo', sans-serif;
+    }
+    .filter-section select:focus {
+      border-color: #0D47A1;
+      outline: none;
+    }
+    .posts-container {
+      padding: 15px;
+    }
+    .post {
+      background-color: white;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .post:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    /* أنماط جديدة لمعلومات المستخدم في المنشور */
+    .post-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .user-avatar-small {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-left: 10px;
+      border: 2px solid #0D47A1;
+      transition: transform 0.3s;
+    }
+    
+    .user-avatar-small:hover {
+      transform: scale(1.05);
+    }
+    
+    .user-name {
+      font-weight: bold;
+      color: #0D47A1;
+      font-size: 16px;
+    }
+    
+    .post .meta {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .post .actions {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+      border-top: 1px solid #eee;
+      padding-top: 10px;
+      font-size: 18px;
+      color: #0D47A1;
+    }
+    .post .actions span {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 10px;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+    .post .actions span:hover {
+      background-color: #f0f4ff;
+    }
+    .comment-box {
+      margin-top: 10px;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .comment-box textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      resize: vertical;
+      min-height: 60px;
+      transition: border-color 0.3s;
+      font-family: 'Cairo', sans-serif;
+    }
+    .comment-box textarea:focus {
+      border-color: #0D47A1;
+      outline: none;
+    }
+    .comment-box button {
+      margin-top: 5px;
+      padding: 6px 12px;
+      border: none;
+      background-color: #0D47A1;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .comment-box button:hover {
+      background-color: #08306B;
+      transform: translateY(-2px);
+    }
+    .comments-list {
+      margin-top: 10px;
+      font-size: 14px;
+      background: #f1f1f1;
+      padding: 10px;
+      border-radius: 8px;
+      animation: slideDown 0.4s ease;
+    }
+    .comment-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 15px;
+      background: white;
+      padding: 12px;
+      border-radius: 8px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+    .comment-item:hover {
+      transform: translateX(5px);
+    }
+    .comment-item img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .comment-item .info {
+      flex: 1;
+    }
+    .comment-item .info .name {
+      font-weight: bold;
+      font-size: 14px;
+      color: #0D47A1;
+      margin-bottom: 5px;
+    }
+    .comment-item .info .comment-text {
+      font-size: 15px;
+      line-height: 1.4;
+    }
+    .comment-meta {
+      display: flex;
+      gap: 15px;
+      margin-top: 8px;
+      color: #777;
+      font-size: 13px;
+    }
+    .comment-meta span {
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .comment-meta span:hover {
+      color: #0D47A1;
+      text-decoration: underline;
+    }
+    .replies-container {
+      margin-top: 10px;
+      padding-left: 15px;
+      border-left: 2px solid #e0e0e0;
+    }
+    .reply-form {
+      margin-top: 10px;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .settings-menu {
+      display: none;
+      position: absolute;
+      top: 110px;
+      right: 10px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      min-width: 180px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      z-index: 999;
+      animation: slideDown 0.3s ease;
+    }
+    .settings-menu li {
+      border-bottom: 1px solid #eee;
+      transition: background-color 0.2s;
+    }
+    .settings-menu li:last-child {
+      border-bottom: none;
+    }
+    .settings-menu li:hover {
+      background-color: #f0f7ff;
+    }
+    .settings-menu a {
+      display: block;
+      padding: 12px 16px;
+      color: #0D47A1;
+      text-decoration: none;
+      transition: background-color 0.2s ease;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .settings-menu a:hover {
+      background-color: #e3f2fd;
+    }
+    .notifications-panel {
+      display: none;
+      position: absolute;
+      top: 130px;
+      right: 10px;
+      width: 280px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      z-index: 1000;
+      padding: 10px;
+      max-height: 400px;
+      overflow-y: auto;
+      animation: slideDown 0.3s ease;
+    }
+    .notification-item {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    .notification-item:hover {
+      background-color: #f5f9ff;
+    }
+    .notification-item.unread {
+      background-color: #e3f2fd;
+      font-weight: bold;
+    }
+    .notif-badge {
+      position: absolute;
+      top: -6px;
+      left: -6px;
+      background-color: red;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 6px;
+      font-size: 11px;
+      font-weight: bold;
+      display: inline-block;
+      line-height: 1;
+      animation: pulse 1.5s infinite;
+    }
+    .delete-btn {
+      background: #ff4d4d;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 4px 8px;
+      cursor: pointer;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .delete-btn:hover {
+      background: #ff1a1a;
+      transform: scale(1.05);
+    }
+    .post-content {
+      font-size: 16px;
+      line-height: 1.5;
+      padding: 10px 0;
+    }
+    .like-count {
+      font-size: 14px;
+      color: #777;
+      margin-left: 5px;
+    }
+    
+    /* أنماط جديدة للإعجابات والردود */
+    .like-animation {
+      animation: likeEffect 0.6s;
+    }
+    @keyframes likeEffect {
+      0% { transform: scale(1); }
+      25% { transform: scale(1.3); }
+      50% { transform: scale(0.9); }
+      100% { transform: scale(1); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    
+    /* تحسينات للقوائم المنسدلة */
+    .panel-visible {
+      display: block !important;
+    }
+    .clickable {
+      cursor: pointer;
+    }
+    .clickable:hover {
+      opacity: 0.9;
+    }
+    .like-icon {
+      transition: transform 0.2s;
+    }
+    
+    /* تحسينات جديدة للواجهة */
+    .filter-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: bold;
+      color: #0D47A1;
+    }
+    .nav-bar i {
+      color: #0D47A1;
+      font-size: 22px;
+    }
+    
+    .nav-bar span:hover i {
+      color: #08306B; /* لون أغمق عند التحويم */
+    }
+    
+    /* أنماط نظام المتابعة */
+    .follow-panel {
+      display: none;
+      position: absolute;
+      top: 130px;
+      right: 10px;
+      width: 300px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      z-index: 1000;
+      padding: 15px;
+      max-height: 400px;
+      overflow-y: auto;
+      animation: slideDown 0.3s ease;
+    }
+    
+    .follow-tabs {
+      display: flex;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 10px;
+    }
+    
+    .tab-btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.3s;
+    }
+    
+    .tab-btn.active {
+      border-bottom-color: #0D47A1;
+      color: #0D47A1;
+      font-weight: bold;
+    }
+    
+    .follow-content {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
+    .follow-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .follow-item img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-left: 10px;
+    }
+    
+    .follow-info {
+      flex: 1;
+    }
+    
+    .follow-name {
+      font-weight: bold;
+      margin-bottom: 3px;
+    }
+    
+    .follow-bio {
+      font-size: 12px;
+      color: #777;
+    }
+    
+    .follow-btn {
+      padding: 6px 12px;
+      border-radius: 15px;
+      border: none;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.3s;
+    }
+    
+    .follow-btn.follow {
+      background-color: #0D47A1;
+      color: white;
+    }
+    
+    .follow-btn.unfollow {
+      background-color: #f5f5f5;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+    
+    .follow-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+    
+    /* أضف هذه الأنماط الجديدة */
+    .post .actions {
+      font-size: 14px; /* تصغير حجم النص */
+    }
+    
+    .post .actions span {
+      padding: 5px 8px; /* تصغير الحشوة */
+      gap: 3px; /* تقليل المسافة بين الأيقونة والنص */
+    }
+    
+    .action-icon {
+      font-size: 16px; /* تصغير حجم الأيقونات */
+      color: #0D47A1; /* اللون الأزرق الأساسي */
+    }
+    
+    /* أنماط نافذة المشاركة */
+    .modal {
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+    
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 400px;
+      text-align: center;
+    }
+    
+    .share-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 15px 0;
+    }
+    
+    .share-options button {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.3s;
+    }
+    
+    .share-options button:hover {
+      background: #f0f4ff;
+      border-color: #0D47A1;
+    }
+    
+    .platform-branding {
+      color: #666;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+    
+    .platform-branding i {
+      color: #0D47A1;
+      font-style: normal;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+      <script type="module">
+    import { getCurrentUser } from './data-manager.js';
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentUser = getCurrentUser();
+      if (!currentUser) {
+        alert('يرجى تسجيل الدخول أولاً');
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 2000);
+      }
+    });
+  </script>
+  <div class="top-bar">
+<div class="logo">
+  <div class="logo-icon">
+    <div class="globe">
+      <div class="grid"></div>
+      <div class="grid vertical"></div>
+    </div>
+  </div>
+  <span>شبكتي</span>
+</div>
+    <div class="actions">
+      <input type="search" placeholder="ابحث هنا...">
+      <button class="chat-btn">💬 دردشة</button>
+    </div>
+  </div>
+  
+  <div class="nav-bar">
+  <a href="index.html" title="الرئيسية" class="clickable"><i class="fas fa-home"></i></a>
+    <span title="الفيديوهات" class="clickable"><i class="fas fa-video"></i></span>
+    <span title="المتابعة" id="followIcon" class="clickable" style="position: relative;">
+      <i class="fas fa-user-plus"></i>
+      <span id="followBadge" class="notif-badge" style="display:none;">0</span>
+    </span>
+    <span title="الإشعارات" id="notificationsIcon" class="clickable" style="position: relative;">
+      <i class="fas fa-bell"></i>
+      <span id="notifCount" class="notif-badge" style="display:none;">0</span>
+    </span>
+    <div id="notificationsPanel" class="notifications-panel"></div>
+    <span title="الإعدادات" id="settingsIcon" class="clickable"><i class="fas fa-cog"></i></span>
+  </div>
+  <div id="loading-indicator" class="loading-indicator">
+    <i class="fas fa-spinner fa-spin"></i> جاري تحميل المشاركات...
+  </div>
+    <div id="error-message" class="error-message" style="display: none;"></div>
+  <div id="error-message" class="error-message" style="display: none;"></div>  
+  <div id="followPanel" class="follow-panel">
+    <div class="follow-tabs">
+      <button class="tab-btn active" onclick="showFollowTab('suggestions')">اقتراحات</button>
+      <button class="tab-btn" onclick="showFollowTab('following')">الملاحقون</button>
+      <button class="tab-btn" onclick="showFollowTab('followers')">المتابعون</button>
+    </div>
+    <div id="followContent" class="follow-content">
+      <!-- سيتم ملؤه ديناميكياً -->
+    </div>
+  </div>
+  
+  <ul id="mainMenu" class="settings-menu">
+    <li><a href="profile.html">👤 الملف الشخصي</a></li>
+    <li><a href="settings.html">⚙️ الإعدادات</a></li>
+    <li><a href="#" onclick="logout()">🚪 تسجيل الخروج</a></li>
+  </ul>
+  
+  <div class="post-trigger-bar">
+    <img id="user-avatar-post" src="" alt="صورة المستخدم" onerror="this.src='https://i.pravatar.cc/50?img=0'; this.onerror=null;">
+    <a href="create-post.html">ما الذي تفكر به؟</a>
+  </div>
+  
+  <div class="filter-section">
+    <div class="filter-label">
+      <span>🎯</span>
+      <span>اختر نوع التصنيف:</span>
+    </div>
+    <select id="mainType" onchange="handleFilter()">
+      <option value="general" selected>🌐 عام (جميع المشاركات)</option>
+      <option value="country">🏳️ حسب الدولة</option>
+      <option value="topic">🏷️ حسب نوع الموضوع</option>
+    </select>
+    <select id="countrySelect" style="display: none;">
+      <option value="">اختر الدولة</option>
+      <option>اليمن</option>
+      <option>السعودية</option>
+      <option>مصر</option>
+      <option>الأردن</option>
+      <option>المغرب</option>
+    </select>
+    <select id="topicSelect" style="display: none;">
+      <option value="">اختر نوع الموضوع</option>
+      <option>تقنية</option>
+      <option>سياسة</option>
+      <option>ترفيه</option>
+      <option>رياضة</option>
+      <option>تعليم</option>
+      <option>صحة</option>
+    </select>
+  </div>
+  
+  <div class="posts-container" id="postsContainer"></div>
+
+  <script>
+    // ===== تهيئة المتغيرات والبيانات =====
+    
+    // التحقق من تسجيل الدخول
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (!currentUser) {
+      window.location.href = 'login.html';
+    }
+    
+    // تهيئة تخزين الإعجابات والتعليقات
+    if (!localStorage.getItem('postLikes')) {
+      localStorage.setItem('postLikes', JSON.stringify({}));
+    }
+    if (!localStorage.getItem('comments')) {
+      localStorage.setItem('comments', JSON.stringify({}));
+    }
+    
+    // تهيئة تخزين المتابعة
+    if (!localStorage.getItem('following')) {
+      localStorage.setItem('following', JSON.stringify({}));
+    }
+    if (!localStorage.getItem('followers')) {
+      localStorage.setItem('followers', JSON.stringify({}));
+    }
+    
+    // ===== الدوال المساعدة =====
+    
+    /**
+     * تنسيق التاريخ بشكل مقروء
+     * @param {string} dateString - تاريخ ISO
+     * @returns {string} تاريخ منسق
+     */
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      };
+      return date.toLocaleString('ar-EG', options);
+    }
+    
+    /**
+     * عرض التعليقات والردود
+     * @param {number} postIndex - فهرس المشاركة
+     * @param {Array} comments - قائمة التعليقات
+     * @returns {string} HTML للتعليقات
+     */
+    function renderComments(postIndex, comments) {
+      if (!comments || comments.length === 0) return '';
+      
+      return comments.map(comment => {
+        // حل مشكلة الصورة في التعليقات
+        const avatar = comment.user?.avatar || 'https://i.pravatar.cc/36?img=0';
+        const name = comment.user?.name || 'مستخدم مجهول';
+        
+        return `
+          <div class="comment-item" id="comment-${comment.id}">
+            <img src="${avatar}" alt="${name}" onerror="this.src='https://i.pravatar.cc/36?img=0'; this.onerror=null;">
+            <div class="info">
+              <div class="name">${name}</div>
+              <div class="comment-text">${comment.text}</div>
+              <div class="comment-meta">
+                <span>${formatDate(comment.timestamp)}</span>
+                <span onclick="showReplyForm(${postIndex}, '${comment.id}')">رد</span>
+              </div>
+              
+              <div class="reply-form" id="reply-form-${postIndex}-${comment.id}" style="display:none;">
+                <textarea placeholder="اكتب ردك..."></textarea>
+                <button onclick="submitReply(${postIndex}, '${comment.id}')">إرسال الرد</button>
+              </div>
+              
+              ${comment.replies && comment.replies.length > 0 ? `
+                <div class="replies-container">
+                  ${comment.replies.map(reply => {
+                    const replyAvatar = reply.user?.avatar || 'https://i.pravatar.cc/36?img=0';
+                    const replyName = reply.user?.name || 'مستخدم مجهول';
+                    
+                    return `
+                      <div class="comment-item">
+                        <img src="${replyAvatar}" alt="${replyName}" onerror="this.src='https://i.pravatar.cc/36?img=0'; this.onerror=null;">
+                        <div class="info">
+                          <div class="name">${replyName}</div>
+                          <div class="comment-text">${reply.text}</div>
+                          <div class="comment-meta">
+                            <span>${formatDate(reply.timestamp)}</span>
+                          </div>
+                        </div>
+                      </div>
+                    `;
+                  }).join('')}
+                </div>
+              ` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    // ===== معالجة الفلاتر =====
+    
+    /**
+     * معالجة تغيير الفلتر
+     */
+    function handleFilter() {
+      const type = document.getElementById("mainType").value;
+      
+      // إظهار/إخفاء خيارات التصنيف الفرعية حسب الاختيار
+      if (type === 'general') {
+        document.getElementById("countrySelect").style.display = 'none';
+        document.getElementById("topicSelect").style.display = 'none';
+      } else if (type === 'country') {
+        document.getElementById("countrySelect").style.display = 'block';
+        document.getElementById("topicSelect").style.display = 'none';
+      } else if (type === 'topic') {
+        document.getElementById("countrySelect").style.display = 'none';
+        document.getElementById("topicSelect").style.display = 'block';
+      }
+    }
+    
+    // ===== معالجة المشاركات =====
+    
+    /**
+     * تحميل وعرض المشاركات
+     */
+    function loadPosts() {
+      const posts = JSON.parse(localStorage.getItem('posts') || '[]');
+      const likes = JSON.parse(localStorage.getItem('postLikes') || '{}');
+      const comments = JSON.parse(localStorage.getItem('comments') || '{}');
+      const container = document.getElementById('postsContainer');
+      
+      container.innerHTML = '';
+      
+      if (posts.length === 0) {
+        container.innerHTML = '<p style="text-align:center; padding:20px; color:#777;">لا توجد مشاركات بعد. كن أول من ينشر!</p>';
+        return;
+      }
+      
+      posts.forEach((post, index) => {
+        const postLikes = likes[index] || [];
+        const isLiked = currentUser ? postLikes.includes(currentUser.emailOrPhone) : false;
+        const postComments = comments[index] || [];
+        const commentCount = postComments.length;
+        
+        const postUser = post.user || {
+          name: currentUser.name,
+          avatar: currentUser.avatar || "https://i.pravatar.cc/50?img=0",
+          email: currentUser.emailOrPhone
+        };
+        
+        const div = document.createElement('div');
+        div.className = 'post';
+        div.innerHTML = `
+          <div class="post-header">
+            <img src="${postUser.avatar}" alt="${postUser.name}" 
+                 class="user-avatar-small"
+                 onerror="this.src='https://i.pravatar.cc/50?img=0'; this.onerror=null;">
+            <span class="user-name">${postUser.name}</span>
+          </div>
+          <div class="meta">
+            <div>
+              📌 تصنيف: ${post.categoryValue} (${post.categoryType}) 
+              <div>🕒 ${formatDate(post.timestamp)}</div>
+            </div>
+            <button class="delete-btn" onclick="deletePost(${index})">
+              🗑️ حذف
+            </button>
+          </div>
+          <div class="post-content">${post.content}</div>
+          <div class="actions">
+            <span onclick="handleLike(${index})">
+              <i class="action-icon ${isLiked ? 'fas fa-heart' : 'far fa-heart'}" style="color:${isLiked ? '#f44336' : '#0D47A1'}"></i>
+              <span class="like-count">${postLikes.length}</span>
+            </span>
+            <span onclick="toggleCommentBox(${index})">
+              <i class="action-icon far fa-comment"></i>
+              <span class="comment-count">${commentCount}</span>
+            </span>
+            <span onclick="showShareOptions(${index})">
+              <i class="action-icon fas fa-share-alt"></i>
+            </span>
+          </div>
+          <div class="comment-box" id="comment-box-${index}">
+            <textarea placeholder="اكتب تعليقك..."></textarea>
+            <button onclick="submitComment(${index})">نشر التعليق</button>
+          </div>
+          <div class="comments-list" id="comments-list-${index}">
+            ${renderComments(index, postComments)}
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+    
+    /**
+     * حذف مشاركة
+     * @param {number} index - فهرس المشاركة
+     */
+    function deletePost(index) {
+      if (confirm('هل أنت متأكد من حذف المشاركة؟')) {
+        const posts = JSON.parse(localStorage.getItem('posts') || '[]');
+        posts.splice(index, 1);
+        localStorage.setItem('posts', JSON.stringify(posts));
+        
+        // حذف الإعجابات والتعليقات المرتبطة بهذا المنشور
+        const likes = JSON.parse(localStorage.getItem('postLikes') || '{}');
+        delete likes[index];
+        localStorage.setItem('postLikes', JSON.stringify(likes));
+        
+        const comments = JSON.parse(localStorage.getItem('comments') || '{}');
+        delete comments[index];
+        localStorage.setItem('comments', JSON.stringify(comments));
+        
+        loadPosts();
+      }
+    }
+    
+    /**
+     * إظهار/إخفاء صندوق التعليق
+     * @param {number} index - فهرس المشاركة
+     */
+    function toggleCommentBox(index) {
+      const box = document.getElementById(`comment-box-${index}`);
+      box.style.display = box.style.display === 'block' ? 'none' : 'block';
+    }
+    
+    // ===== نظام الإعجابات =====
+    
+    /**
+     * التعامل مع الإعجاب
+     * @param {number} postIndex - فهرس المشاركة
+     */
+    function handleLike(postIndex) {
+      if (!currentUser) return;
+      
+      const likes = JSON.parse(localStorage.getItem('postLikes') || '{}');
+      if (!likes[postIndex]) likes[postIndex] = [];
+      
+      const userIndex = likes[postIndex].indexOf(currentUser.emailOrPhone);
+      
+      if (userIndex === -1) {
+        likes[postIndex].push(currentUser.emailOrPhone);
+        addNotification(`أعجب ${currentUser.name} بمشاركتك`);
+      } else {
+        likes[postIndex].splice(userIndex, 1);
+      }
+      
+      localStorage.setItem('postLikes', JSON.stringify(likes));
+      updateLikeDisplay(postIndex);
+    }
+    
+    /**
+     * تحديث عرض الإعجابات
+     * @param {number} postIndex - فهرس المشاركة
+     */
+    function updateLikeDisplay(postIndex) {
+      const likes = JSON.parse(localStorage.getItem('postLikes') || '{}');
+      const postLikes = likes[postIndex] || [];
+      const isLiked = currentUser ? postLikes.includes(currentUser.emailOrPhone) : false;
+      
+      const likeButton = document.querySelector(`.post:nth-child(${postIndex + 1}) .actions span:first-child`);
+      if (likeButton) {
+        const likeIcon = likeButton.querySelector('.action-icon');
+        const likeCount = likeButton.querySelector('.like-count');
+        
+        likeIcon.innerHTML = isLiked ? '❤️' : '🤍';
+        likeIcon.style.color = isLiked ? '#f44336' : '#0D47A1';
+        likeCount.textContent = `(${postLikes.length})`;
+        likeIcon.classList.add('like-animation');
+        
+        setTimeout(() => {
+          likeIcon.classList.remove('like-animation');
+        }, 600);
+      }
+    }
+    
+    // ===== نظام التعليقات =====
+    
+    /**
+     * إضافة تعليق جديد
+     * @param {number} postIndex - فهرس المشاركة
+     */
+    function submitComment(postIndex) {
+      if (!currentUser) return;
+      
+      const textarea = document.querySelector(`#comment-box-${postIndex} textarea`);
+      const text = textarea.value.trim();
+      
+      if (!text) {
+        alert('❗ الرجاء كتابة تعليق.');
+        return;
+      }
+      
+      const newComment = {
+        id: Date.now().toString(),
+        user: {
+          name: currentUser.name,
+          avatar: currentUser.avatar || 'https://i.pravatar.cc/36?img=0',
+          email: currentUser.emailOrPhone
+        },
+        text: text,
+        timestamp: new Date().toISOString(),
+        replies: []
+      };
+      
+      let comments = JSON.parse(localStorage.getItem('comments') || '{}');
+      if (!comments[postIndex]) comments[postIndex] = [];
+      comments[postIndex].push(newComment);
+      localStorage.setItem('comments', JSON.stringify(comments));
+      
+      // تحديث قسم التعليقات
+      const commentsContainer = document.getElementById(`comments-list-${postIndex}`);
+      commentsContainer.innerHTML = renderComments(postIndex, comments[postIndex]);
+      textarea.value = '';
+      
+      // إرسال إشعار
+      addNotification('تم إضافة تعليق جديد على مشاركتك');
+    }
+    
+    /**
+     * إظهار نموذج الرد
+     * @param {number} postIndex - فهرس المشاركة
+     * @param {string} commentId - معرف التعليق
+     */
+    function showReplyForm(postIndex, commentId) {
+      const form = document.getElementById(`reply-form-${postIndex}-${commentId}`);
+      form.style.display = form.style.display === 'block' ? 'none' : 'block';
+    }
+    
+    /**
+     * إضافة رد
+     * @param {number} postIndex - فهرس المشاركة
+     * @param {string} commentId - معرف التعليق
+     */
+    function submitReply(postIndex, commentId) {
+      if (!currentUser) return;
+      
+      const textarea = document.querySelector(`#reply-form-${postIndex}-${commentId} textarea`);
+      const text = textarea.value.trim();
+      
+      if (!text) {
+        alert('❗ الرجاء كتابة رد.');
+        return;
+      }
+      
+      const newReply = {
+        id: Date.now().toString(),
+        user: {
+          name: currentUser.name,
+          avatar: currentUser.avatar || 'https://i.pravatar.cc/36?img=0',
+          email: currentUser.emailOrPhone
+        },
+        text: text,
+        timestamp: new Date().toISOString()
+      };
+      
+      let comments = JSON.parse(localStorage.getItem('comments') || '{}');
+      const comment = comments[postIndex]?.find(c => c.id === commentId);
+      
+      if (comment) {
+        if (!comment.replies) comment.replies = [];
+        comment.replies.push(newReply);
+        localStorage.setItem('comments', JSON.stringify(comments));
+        
+        // تحديث قسم التعليقات
+        const commentsContainer = document.getElementById(`comments-list-${postIndex}`);
+        commentsContainer.innerHTML = renderComments(postIndex, comments[postIndex]);
+        textarea.value = '';
+      }
+    }
+    
+    /**
+     * مشاركة المنشور
+     * @param {number} index - فهرس المشاركة
+     */
+    function sharePost(index) {
+      alert('تمت مشاركة المنشور بنجاح!');
+    }
+    
+    // ===== نظام المتابعة الجديد =====
+    
+    /**
+     * تبديل عرض لوحة المتابعة
+     */
+    function toggleFollowPanel() {
+      const panel = document.getElementById('followPanel');
+      const notifPanel = document.getElementById('notificationsPanel');
+      const menu = document.getElementById('mainMenu');
+      
+      // تبديل حالة لوحة المتابعة
+      panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+      
+      // إغلاق اللوحات الأخرى إذا كانت مفتوحة
+      notifPanel.style.display = 'none';
+      menu.style.display = 'none';
+      
+      if (panel.style.display === 'block') {
+        showFollowTab('suggestions');
+      }
+    }
+    
+    /**
+     * عرض تبويب المتابعة المحدد
+     */
+    function showFollowTab(tabName) {
+      // تحديث التبويبات النشطة
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      // تنشيط التبويب المحدد
+      const tabButtons = document.querySelectorAll('.tab-btn');
+      if (tabName === 'suggestions') {
+        tabButtons[0].classList.add('active');
+      } else if (tabName === 'following') {
+        tabButtons[1].classList.add('active');
+      } else if (tabName === 'followers') {
+        tabButtons[2].classList.add('active');
+      }
+      
+      // تحميل المحتوى المناسب للتبويب
+      const contentDiv = document.getElementById('followContent');
+      
+      if (tabName === 'suggestions') {
+        loadFollowSuggestions();
+      } else if (tabName === 'following') {
+        loadFollowingList();
+      } else if (tabName === 'followers') {
+        loadFollowersList();
+      }
+    }
+    
+    /**
+     * تحميل اقتراحات المتابعة
+     */
+    function loadFollowSuggestions() {
+      const contentDiv = document.getElementById('followContent');
+      const allUsers = JSON.parse(localStorage.getItem('users') || '[]');
+      const currentUserEmail = currentUser?.emailOrPhone;
+      const following = JSON.parse(localStorage.getItem('following') || {});
+      const userFollowing = following[currentUserEmail] || [];
+      
+      // استبعاد المستخدم الحالي والمستخدمين المتابَعين
+      const suggestions = allUsers.filter(user => 
+        user.emailOrPhone !== currentUserEmail && 
+        !userFollowing.includes(user.emailOrPhone)
+      );
+      
+      if (suggestions.length === 0) {
+        contentDiv.innerHTML = '<p style="padding:10px; text-align:center;">لا توجد اقتراحات متاحة حالياً.</p>';
+        return;
+      }
+      
+      contentDiv.innerHTML = suggestions.map(user => {
+        return `
+          <div class="follow-item">
+            <img src="${user.avatar || 'https://i.pravatar.cc/40?img=0'}" 
+                 alt="${user.name}" 
+                 onerror="this.src='https://i.pravatar.cc/40?img=0'; this.onerror=null;">
+            <div class="follow-info">
+              <div class="follow-name">${user.name}</div>
+              <div class="follow-bio">${user.bio || 'مستخدم في شبكتي'}</div>
+            </div>
+            <button class="follow-btn follow" onclick="followUser('${user.emailOrPhone}')">
+              متابعة
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    /**
+     * تحميل قائمة الملاحقين (الذين يتابعهم المستخدم)
+     */
+    function loadFollowingList() {
+      const contentDiv = document.getElementById('followContent');
+      const allUsers = JSON.parse(localStorage.getItem('users') || '[]');
+      const currentUserEmail = currentUser?.emailOrPhone;
+      const following = JSON.parse(localStorage.getItem('following') || {});
+      const userFollowing = following[currentUserEmail] || [];
+      
+      const followingUsers = allUsers.filter(user => 
+        userFollowing.includes(user.emailOrPhone)
+      );
+      
+      if (followingUsers.length === 0) {
+        contentDiv.innerHTML = '<p style="padding:10px; text-align:center;">لا تتابع أي مستخدم حتى الآن.</p>';
+        return;
+      }
+      
+      contentDiv.innerHTML = followingUsers.map(user => {
+        return `
+          <div class="follow-item">
+            <img src="${user.avatar || 'https://i.pravatar.cc/40?img=0'}" 
+                 alt="${user.name}" 
+                 onerror="this.src='https://i.pravatar.cc/40?img=0'; this.onerror=null;">
+            <div class="follow-info">
+              <div class="follow-name">${user.name}</div>
+              <div class="follow-bio">${user.bio || 'مستخدم في شبكتي'}</div>
+            </div>
+            <button class="follow-btn unfollow" onclick="unfollowUser('${user.emailOrPhone}')">
+              إلغاء المتابعة
+            </button>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    /**
+     * تحميل قائمة المتابعين (الذين يتابعون المستخدم)
+     */
+    function loadFollowersList() {
+      const contentDiv = document.getElementById('followContent');
+      const allUsers = JSON.parse(localStorage.getItem('users') || '[]');
+      const currentUserEmail = currentUser?.emailOrPhone;
+      const followers = JSON.parse(localStorage.getItem('followers') || {});
+      const userFollowers = followers[currentUserEmail] || [];
+      
+      const followerUsers = allUsers.filter(user => 
+        userFollowers.includes(user.emailOrPhone)
+      );
+      
+      if (followerUsers.length === 0) {
+        contentDiv.innerHTML = '<p style="padding:10px; text-align:center;">لا يوجد متابعون حتى الآن.</p>';
+        return;
+      }
+      
+      contentDiv.innerHTML = followerUsers.map(user => {
+        return `
+          <div class="follow-item">
+            <img src="${user.avatar || 'https://i.pravatar.cc/40?img=0'}" 
+                 alt="${user.name}" 
+                 onerror="this.src='https://i.pravatar.cc/40?img=0'; this.onerror=null;">
+            <div class="follow-info">
+              <div class="follow-name">${user.name}</div>
+              <div class="follow-bio">${user.bio || 'مستخدم في شبكتي'}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    /**
+     * متابعة مستخدم
+     */
+    function followUser(userEmail) {
+      const following = JSON.parse(localStorage.getItem('following') || {});
+      const followers = JSON.parse(localStorage.getItem('followers') || {});
+      const currentUserEmail = currentUser.emailOrPhone;
+      
+      if (!following[currentUserEmail]) {
+        following[currentUserEmail] = [];
+      }
+      
+      if (!following[currentUserEmail].includes(userEmail)) {
+        following[currentUserEmail].push(userEmail);
+        localStorage.setItem('following', JSON.stringify(following));
+        
+        // إضافة المستخدم الحالي كمتابع للمستخدم الآخر
+        if (!followers[userEmail]) {
+          followers[userEmail] = [];
+        }
+        if (!followers[userEmail].includes(currentUserEmail)) {
+          followers[userEmail].push(currentUserEmail);
+          localStorage.setItem('followers', JSON.stringify(followers));
+        }
+        
+        // إرسال إشعار
+        addNotification(`بدأت متابعة مستخدم جديد`);
+        
+        // تحديث العرض
+        showFollowTab('suggestions');
+      }
+    }
+    
+    /**
+     * إلغاء متابعة مستخدم
+     */
+    function unfollowUser(userEmail) {
+      const following = JSON.parse(localStorage.getItem('following') || {});
+      const followers = JSON.parse(localStorage.getItem('followers') || {});
+      const currentUserEmail = currentUser.emailOrPhone;
+      
+      if (following[currentUserEmail]) {
+        following[currentUserEmail] = following[currentUserEmail].filter(
+          email => email !== userEmail
+        );
+        localStorage.setItem('following', JSON.stringify(following));
+        
+        // إزالة المستخدم الحالي من متابعي المستخدم الآخر
+        if (followers[userEmail]) {
+          followers[userEmail] = followers[userEmail].filter(
+            email => email !== currentUserEmail
+          );
+          localStorage.setItem('followers', JSON.stringify(followers));
+        }
+        
+        // إرسال إشعار
+        addNotification(`ألغيت متابعة مستخدم`);
+        
+        // تحديث العرض
+        showFollowTab('following');
+      }
+    }
+    
+    // ===== القائمة والإشعارات =====
+    
+    // دالة تبديل قائمة الإعدادات
+    function toggleMenu() {
+      const menu = document.getElementById('mainMenu');
+      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+      
+      // إغلاق قائمة الإشعارات إذا كانت مفتوحة
+      const panel = document.getElementById('notificationsPanel');
+      panel.style.display = 'none';
+    }
+    
+    function logout() {
+      localStorage.removeItem('currentUser');
+      window.location.href = 'login.html';
+    }
+    
+    /**
+     * عرض الإشعارات
+     */
+    function showNotifications() {
+      const panel = document.getElementById('notificationsPanel');
+      const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+      
+      panel.innerHTML = notifications.length === 0
+        ? '<p style="padding:10px; text-align:center;">لا توجد إشعارات.</p>'
+        : notifications.map((n, i) => `
+          <div class="notification-item ${!n.read ? 'unread' : ''}" onclick="markAsRead(${i})">
+            📢 ${n.text}<br>
+            <small>${new Date(n.timestamp).toLocaleString('ar-EG')}</small>
+          </div>
+        `).join('');
+    }
+    
+    /**
+     * تمييز الإشعار كمقروء
+     * @param {number} index - فهرس الإشعار
+     */
+    function markAsRead(index) {
+      let notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+      notifications[index].read = true;
+      localStorage.setItem('notifications', JSON.stringify(notifications));
+      showNotifications();
+      updateNotifCount();
+    }
+    
+    /**
+     * إضافة إشعار جديد
+     * @param {string} message - نص الإشعار
+     */
+    function addNotification(message) {
+      const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+      notifications.unshift({
+        text: message,
+        read: false,
+        timestamp: new Date().toISOString()
+      });
+      localStorage.setItem('notifications', JSON.stringify(notifications));
+      updateNotifCount();
+    }
+    
+    /**
+     * تحديث عداد الإشعارات
+     */
+    function updateNotifCount() {
+      const notifications = JSON.parse(localStorage.getItem('notifications') || '[]');
+      const unreadCount = notifications.filter(n => !n.read).length;
+      const notifBadge = document.getElementById('notifCount');
+      
+      if (unreadCount > 0) {
+        notifBadge.textContent = unreadCount;
+        notifBadge.style.display = 'block';
+      } else {
+        notifBadge.style.display = 'none';
+      }
+    }
+    
+    /**
+     * تبديل الإشعارات
+     */
+    function toggleNotifications() {
+      const panel = document.getElementById('notificationsPanel');
+      const menu = document.getElementById('mainMenu');
+      
+      // تبديل حالة قائمة الإشعارات
+      panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+      
+      // إغلاق قائمة الإعدادات إذا كانت مفتوحة
+      menu.style.display = 'none';
+      
+      if (panel.style.display === 'block') {
+        let notifs = JSON.parse(localStorage.getItem('notifications') || '[]');
+        notifs = notifs.map(n => ({ ...n, read: true }));
+        localStorage.setItem('notifications', JSON.stringify(notifs));
+        updateNotifCount();
+        showNotifications();
+      }
+    }
+    
+    // ===== تهيئة الصفحة =====
+    
+    window.onload = function () {
+      // تحميل صورة المستخدم
+      const avatar = document.getElementById('user-avatar-post');
+      if (currentUser && avatar) {
+        avatar.src = currentUser.avatar || 'https://i.pravatar.cc/50?img=0';
+      }
+      
+      // تحميل المشاركات
+      function showError(message) {
+      const errorElement = document.getElementById('error-message');
+      errorElement.textContent = message;
+      errorElement.style.display = 'block';
+      
+      setTimeout(() => {
+        errorElement.style.display = 'none';
+      }, 5000);
+    }
+      // تحديث عداد الإشعارات
+      updateNotifCount();
+      
+      // إضافة مستمعي الأحداث للأيقونات
+      document.getElementById('settingsIcon').addEventListener('click', toggleMenu);
+      document.getElementById('notificationsIcon').addEventListener('click', toggleNotifications);
+      document.getElementById('followIcon').addEventListener('click', toggleFollowPanel);
+      
+      // إغلاق القوائم عند النقر في أي مكان في المستند
+      document.addEventListener('click', function(e) {
+        const panel = document.getElementById('notificationsPanel');
+        const followPanel = document.getElementById('followPanel');
+        const menu = document.getElementById('mainMenu');
+        
+        // إغلاق القوائم إذا تم النقر خارجها
+        if (panel.style.display === 'block' && 
+            !e.target.closest('#notificationsPanel') && 
+            !e.target.closest('#notificationsIcon')) {
+          panel.style.display = 'none';
+        }
+        
+        if (followPanel.style.display === 'block' && 
+            !e.target.closest('#followPanel') && 
+            !e.target.closest('#followIcon')) {
+          followPanel.style.display = 'none';
+        }
+        
+        if (menu.style.display === 'block' && 
+            !e.target.closest('#mainMenu') && 
+            !e.target.closest('#settingsIcon')) {
+          menu.style.display = 'none';
+        }
+      });
+      
+      // إضافة بعض البيانات المبدئية للتجربة
+      if (!localStorage.getItem('posts') || JSON.parse(localStorage.getItem('posts')).length === 0) {
+        const samplePosts = [
+          {
+            content: "مرحبًا بكم في شبكتي! هذا أول منشور تجريبي على المنصة. نتمنى لكم تجربة ممتعة.",
+            categoryType: "topic",
+            categoryValue: "ترحيب",
+            timestamp: new Date().toISOString(),
+            user: {
+              name: currentUser.name,
+              avatar: currentUser.avatar || "https://i.pravatar.cc/50?img=0",
+              email: currentUser.emailOrPhone
+            }
+          },
+          {
+            content: "ما رأيكم في واجهة الموقع الجديدة؟ شاركونا آرائكم ومقترحاتكم.",
+            categoryType: "topic",
+            categoryValue: "تقنية",
+            timestamp: new Date(Date.now() - 3600000).toISOString(),
+            user: {
+              name: "أحمد محمد",
+              avatar: "https://i.pravatar.cc/50?img=5",
+              email: "ahmed@example.com"
+            }
+          },
+          {
+            content: "أنا سعيد جدًا بإضافة خيار التصنيف العام إلى المنصة، أصبح البحث أكثر سهولة!",
+            categoryType: "topic",
+            categoryValue: "تحسينات",
+            timestamp: new Date(Date.now() - 7200000).toISOString(),
+            user: {
+              name: "سارة عبدالله",
+              avatar: "https://i.pravatar.cc/50?img=11",
+              email: "sara@example.com"
+            }
+          }
+        ];
+        localStorage.setItem('posts', JSON.stringify(samplePosts));
+      }
+      
+      // بيانات المستخدمين للتجربة
+      if (!localStorage.getItem('users')) {
+        const sampleUsers = [
+          {
+            name: "أحمد محمد",
+            emailOrPhone: "ahmed@example.com",
+            avatar: "https://i.pravatar.cc/50?img=5",
+            bio: "مطور ويب ومصمم"
+          },
+          {
+            name: "سارة عبدالله",
+            emailOrPhone: "sara@example.com",
+            avatar: "https://i.pravatar.cc/50?img=11",
+            bio: "كاتبة محتوى ومدونة"
+          },
+          {
+            name: "خالد سعيد",
+            emailOrPhone: "khaled@example.com",
+            avatar: "https://i.pravatar.cc/50?img=7",
+            bio: "مهندس برمجيات"
+          }
+        ];
+        localStorage.setItem('users', JSON.stringify(sampleUsers));
+      }
+      
+      // تحميل المشاركات
+      loadPosts();
+      
+      // تطبيق فلتر عام عند التحميل الأولي
+      handleFilter();
+    };
+  </script>
+  
+  <div id="shareModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close" onclick="closeShareModal()">&times;</span>
+      <h3>مشاركة المنشور</h3>
+      <div class="share-options">
+        <button onclick="shareOnPlatform('internal')">
+          <i class="fas fa-retweet"></i> إعادة النشر
+        </button>
+        <button onclick="shareOnPlatform('whatsapp')">
+          <i class="fab fa-whatsapp"></i> واتساب
+        </button>
+        <button onclick="shareOnPlatform('facebook')">
+          <i class="fab fa-facebook"></i> فيسبوك
+        </button>
+        <button onclick="shareOnPlatform('twitter')">
+          <i class="fab fa-twitter"></i> تويتر
+        </button>
+        <button onclick="shareOnPlatform('copy')">
+          <i class="fas fa-copy"></i> نسخ الرابط
+        </button>
+      </div>
+      <div class="platform-branding">
+        <small>مشاركة عبر <i>شبكتي</i></small>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // وظائف المشاركة الجديدة
+    let currentPostToShare = null;
+    
+    function showShareOptions(postIndex) {
+      currentPostToShare = postIndex;
+      document.getElementById('shareModal').style.display = 'block';
+    }
+    
+    function closeShareModal() {
+      document.getElementById('shareModal').style.display = 'none';
+    }
+    
+    function shareOnPlatform(platform) {
+      const posts = JSON.parse(localStorage.getItem('posts'));
+      const post = posts[currentPostToShare];
+      
+      let message = `${post.content}\n\n---\nمشاركة عبر منصة شبكتي`;
+      
+      switch(platform) {
+        case 'internal':
+          // إعادة النشر داخلياً
+          const newPost = {
+            ...post,
+            shared: true,
+            originalPoster: post.user || currentUser.name,
+            timestamp: new Date().toISOString()
+          };
+          posts.unshift(newPost);
+          localStorage.setItem('posts', JSON.stringify(posts));
+          loadPosts();
+          addNotification(`تمت مشاركة منشورك بواسطة ${currentUser.name}`);
+          break;
+          
+        case 'whatsapp':
+          window.open(`https://wa.me/?text=${encodeURIComponent(message)}`);
+          break;
+          
+        case 'facebook':
+          window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(message)}`);
+          break;
+          
+        case 'twitter':
+          window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`);
+          break;
+          
+        case 'copy':
+          navigator.clipboard.writeText(message);
+          alert('تم نسخ المنشور إلى الحافظة');
+          break;
+      }
+      
+      closeShareModal();
+    }
+    
+    // إغلاق النافذة عند النقر خارجها
+    window.onclick = function(event) {
+      if (event.target == document.getElementById('shareModal')) {
+        closeShareModal();
+      }
+    }
+  </script>
+</body>
+</html>

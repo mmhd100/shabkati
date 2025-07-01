@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>إنشاء مشاركة - شبكتي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #0D47A1;
+      --secondary-color: #1E88E5;
+      --light-blue: #e3f2fd;
+      --gray-bg: #f0f2f5;
+      --border-color: #e2e8f0;
+      --success-color: #48bb78;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Cairo', sans-serif;
+    }
+    
+    body {
+      background-color: var(--gray-bg);
+      color: #333;
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .container {
+      background-color: #fff;
+      max-width: 700px;
+      width: 100%;
+      margin: auto;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--border-color);
+    }
+    
+    .header i {
+      background: var(--light-blue);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--primary-color);
+    }
+    
+    .header h1 {
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      margin: 0;
+    }
+    
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      padding: 15px;
+      background: var(--light-blue);
+      border-radius: 12px;
+    }
+    
+    .user-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+    }
+    
+    .user-name {
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    
+    textarea {
+      width: 100%;
+      min-height: 150px;
+      padding: 15px;
+      border-radius: 12px;
+      border: 2px solid var(--border-color);
+      resize: vertical;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      margin-bottom: 25px;
+    }
+    
+    textarea:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.1);
+      outline: none;
+    }
+    
+    textarea::placeholder {
+      color: #aaa;
+    }
+    
+    .options-section {
+      background: var(--gray-bg);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+    }
+    
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .section-title i {
+      color: var(--secondary-color);
+    }
+    
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    
+    @media (max-width: 600px) {
+      .options-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .option-group {
+      margin-bottom: 15px;
+    }
+    
+    .option-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    
+    select, .poll-option {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 2px solid var(--border-color);
+      background: white;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    select:focus, .poll-option:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.1);
+      outline: none;
+    }
+    
+    .attachment-options {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .attachment-btn {
+      flex: 1;
+      min-width: 100px;
+      padding: 12px;
+      border: 2px solid var(--primary-color);
+      background: white;
+      color: var(--primary-color);
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .attachment-btn:hover {
+      background: var(--light-blue);
+      transform: translateY(-2px);
+    }
+    
+    .attachment-preview {
+      margin-top: 20px;
+      display: none;
+    }
+    
+    .preview-item {
+      display: inline-block;
+      position: relative;
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
+    
+    .preview-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 2px solid var(--border-color);
+    }
+    
+    .remove-btn {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 25px;
+      height: 25px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    
+    .poll-container {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+      border: 2px dashed var(--border-color);
+      display: none;
+    }
+    
+    .poll-options {
+      margin-top: 15px;
+    }
+    
+    .poll-option {
+      margin-bottom: 10px;
+      padding: 10px 15px;
+    }
+    
+    .add-option-btn {
+      background: var(--light-blue);
+      color: var(--primary-color);
+      border: none;
+      padding: 8px 15px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 10px;
+    }
+    
+    .submit-btn {
+      width: 100%;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 4px 8px rgba(13, 71, 161, 0.3);
+    }
+    
+    .submit-btn:hover {
+      background: #0b3d91;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(13, 71, 161, 0.4);
+    }
+    
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+    
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 25px;
+      border-radius: 8px;
+      background: white;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      z-index: 1000;
+      transform: translateX(150%);
+      transition: transform 0.5s ease;
+    }
+    
+    .toast.show {
+      transform: translateX(0);
+    }
+    
+    .toast.success {
+      border-left: 4px solid var(--success-color);
+    }
+    
+    .toast.success i {
+      color: var(--success-color);
+    }
+    
+    .loader {
+      display: none;
+      width: 30px;
+      height: 30px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top: 3px solid #fff;
+      animation: spin 1s linear infinite;
+      margin-left: 15px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .char-count {
+      text-align: left;
+      color: #777;
+      font-size: 0.9rem;
+      margin-top: -20px;
+      margin-bottom: 20px;
+    }
+    
+    .back-button {
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      font-size: 1.5rem;
+      color: #0D47A1;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+      <a href="index.html" class="back-button">
+    <i class="fas fa-arrow-left"></i>
+  </a>
+  
+  <div class="container">
+    <!-- رأس الصفحة -->
+    <div class="header">
+      <i class="fas fa-pen-alt"></i>
+      <h1>إنشاء مشاركة جديدة</h1>
+    </div>
+    
+    <!-- معلومات المستخدم -->
+    <div class="user-info">
+      <img id="current-user-avatar" class="user-avatar" src="" alt="صورة المستخدم">
+      <div class="user-name" id="current-user-name"></div>
+    </div>
+    
+    <!-- حقل النص -->
+    <textarea id="post-content" placeholder="ما الذي يدور في ذهنك الآن؟ شارك أفكارك مع مجتمع شبكتي..."></textarea>
+    <div class="char-count" id="char-count">0/500 حرف</div>
+    
+    <!-- خيارات المشاركة -->
+    <div class="options-section">
+      <div class="section-title">
+        <i class="fas fa-tags"></i>
+        تصنيف المشاركة
+      </div>
+      
+      <div class="options-grid">
+        <div class="option-group">
+          <label for="mainType"><i class="fas fa-globe"></i> نوع التصنيف</label>
+          <select id="mainType" onchange="toggleSubSelect()">
+            <option value="general" selected>عام (افتراضي)</option>
+            <option value="country">حسب الدولة</option>
+            <option value="topic">حسب الموضوع</option>
+          </select>
+        </div>
+        
+        <div class="option-group">
+          <label for="privacy"><i class="fas fa-lock"></i> خصوصية المنشور</label>
+          <select id="privacy">
+            <option value="public">عام (الجميع)</option>
+            <option value="friends">الأصدقاء فقط</option>
+            <option value="private">خاص (فقط أنا)</option>
+          </select>
+        </div>
+        
+        <div class="option-group" id="country-group" style="display:none;">
+          <label for="countrySelect"><i class="fas fa-flag"></i> اختر الدولة</label>
+          <select id="countrySelect">
+            <option>اليمن</option>
+            <option>السعودية</option>
+            <option>مصر</option>
+            <option>الإمارات</option>
+            <option>الكويت</option>
+            <option>الأردن</option>
+            <option>العراق</option>
+            <option>قطر</option>
+            <option>عُمان</option>
+            <option>لبنان</option>
+          </select>
+        </div>
+        
+        <div class="option-group" id="topic-group" style="display:none;">
+          <label for="topicSelect"><i class="fas fa-hashtag"></i> اختر الموضوع</label>
+          <select id="topicSelect">
+            <option>تقنية</option>
+            <option>سياسة</option>
+            <option>ترفيه</option>
+            <option>رياضة</option>
+            <option>تعليم</option>
+            <option>صحة</option>
+            <option>أعمال</option>
+            <option>فنون</option>
+            <option>سفر</option>
+            <option>طعام</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    
+    <!-- مرفقات المشاركة -->
+    <div class="options-section">
+      <div class="section-title">
+        <i class="fas fa-paperclip"></i>
+        إضافة مرفقات
+      </div>
+      
+      <div class="attachment-options">
+        <button class="attachment-btn" onclick="addAttachment('photo')">
+          <i class="fas fa-camera"></i> صورة
+        </button>
+        <button class="attachment-btn" onclick="addAttachment('video')">
+          <i class="fas fa-video"></i> فيديو
+        </button>
+        <button class="attachment-btn" onclick="addAttachment('poll')">
+          <i class="fas fa-poll"></i> استطلاع
+        </button>
+      </div>
+      
+      <!-- معاينة المرفقات -->
+      <div class="attachment-preview" id="attachment-preview"></div>
+      
+      <!-- استطلاع الرأي -->
+      <div class="poll-container" id="poll-container">
+        <div class="option-group">
+          <label><i class="fas fa-question-circle"></i> سؤال الاستطلاع</label>
+          <input type="text" id="poll-question" class="poll-option" placeholder="أدخل سؤال الاستطلاع">
+        </div>
+        
+        <div class="poll-options" id="poll-options">
+          <input type="text" class="poll-option" placeholder="خيار 1">
+          <input type="text" class="poll-option" placeholder="خيار 2">
+        </div>
+        
+        <button class="add-option-btn" onclick="addPollOption()">
+          <i class="fas fa-plus"></i> إضافة خيار
+        </button>
+      </div>
+    </div>
+    
+    <!-- زر النشر -->
+    <button class="submit-btn" onclick="submitPost()" id="submit-btn">
+      <i class="fas fa-paper-plane"></i> نشر المشاركة
+      <div class="loader" id="loader"></div>
+    </button>
+  </div>
+  
+  <!-- رسالة التنبيه -->
+  <div id="toast" class="toast">
+    <i class="fas fa-check-circle"></i>
+    <div class="toast-message">تم نشر المشاركة بنجاح!</div>
+  </div>
+  
+  <script>
+    // تهيئة بيانات المستخدم
+    document.addEventListener('DOMContentLoaded', function() {
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+      
+      if (!user) {
+        alert('يرجى تسجيل الدخول أولاً');
+        window.location.href = 'login.html';
+        return;
+      }
+      
+      document.getElementById('current-user-avatar').src = user.avatar || 'https://i.pravatar.cc/100';
+      document.getElementById('current-user-name').textContent = user.name || 'مستخدم جديد';
+      
+      // متابعة عدد الأحرف
+      const textarea = document.getElementById('post-content');
+      const charCount = document.getElementById('char-count');
+      
+      textarea.addEventListener('input', function() {
+        const length = this.value.length;
+        charCount.textContent = `${length}/500 حرف`;
+        charCount.style.color = length > 500 ? '#f44336' : '#777';
+      });
+    });
+    
+    // التبديل بين خيارات التصنيف
+    function toggleSubSelect() {
+      const type = document.getElementById('mainType').value;
+      
+      // إخفاء جميع التصنيفات الفرعية أولاً
+      document.getElementById('country-group').style.display = 'none';
+      document.getElementById('topic-group').style.display = 'none';
+      
+      // إظهار التصنيف الفرعي المناسب
+      if (type === 'country') {
+        document.getElementById('country-group').style.display = 'block';
+      } else if (type === 'topic') {
+        document.getElementById('topic-group').style.display = 'block';
+      }
+    }
+    
+    // إضافة مرفق
+    function addAttachment(type) {
+      const preview = document.getElementById('attachment-preview');
+      
+      if (type === 'poll') {
+        document.getElementById('poll-container').style.display = 'block';
+        preview.style.display = 'none';
+        return;
+      }
+      
+      document.getElementById('poll-container').style.display = 'none';
+      preview.style.display = 'block';
+      
+      // محاكاة إضافة ملف (في التطبيق الحقيقي سيتم اختيار ملف)
+      const attachmentId = 'att-' + Date.now();
+      
+      let previewHTML = `
+        <div class="preview-item" id="${attachmentId}">
+          <img src="https://via.placeholder.com/100x100/0D47A1/ffffff?text=${type === 'photo' ? 'صورة' : 'فيديو'}" 
+               class="preview-image" 
+               alt="مرفق">
+          <div class="remove-btn" onclick="removeAttachment('${attachmentId}')">
+            <i class="fas fa-times"></i>
+          </div>
+        </div>
+      `;
+      
+      preview.innerHTML += previewHTML;
+    }
+    
+    // إزالة مرفق
+    function removeAttachment(id) {
+      const element = document.getElementById(id);
+      if (element) {
+        element.remove();
+      }
+      
+      // إخفاء معاينة المرفقات إذا لم يتبق شيء
+      const preview = document.getElementById('attachment-preview');
+      if (preview.children.length === 0) {
+        preview.style.display = 'none';
+      }
+    }
+    
+    // إضافة خيار استطلاع
+    function addPollOption() {
+      const options = document.getElementById('poll-options');
+      const optionCount = options.children.length + 1;
+      
+      const optionInput = document.createElement('input');
+      optionInput.type = 'text';
+      optionInput.className = 'poll-option';
+      optionInput.placeholder = `خيار ${optionCount}`;
+      
+      options.appendChild(optionInput);
+    }
+    
+    // إرسال المشاركة
+    function submitPost() {
+      const content = document.getElementById('post-content').value.trim();
+      const mainType = document.getElementById('mainType').value;
+      const privacy = document.getElementById('privacy').value;
+      
+      // التحقق من المحتوى
+      if (!content || content.length > 500) {
+        alert('يرجى كتابة محتوى المشاركة (بحد أقصى 500 حرف)');
+        return;
+      }
+      
+      // التحقق من التصنيف
+      let category = 'عام';
+      let categoryValue = '';
+      
+      if (mainType === 'country') {
+        categoryValue = document.getElementById('countrySelect').value;
+        if (!categoryValue) {
+          alert('يرجى اختيار الدولة');
+          return;
+        }
+        category = 'الدولة: ' + categoryValue;
+      } 
+      else if (mainType === 'topic') {
+        categoryValue = document.getElementById('topicSelect').value;
+        if (!categoryValue) {
+          alert('يرجى اختيار الموضوع');
+          return;
+        }
+        category = 'الموضوع: ' + categoryValue;
+      }
+      // إذا كان التصنيف "عام" فلا حاجة لاختيار تصنيف فرعي
+      
+      // جمع بيانات المشاركة
+      const post = {
+        content,
+        categoryType: mainType,
+        categoryValue: mainType === 'general' ? 'عام' : categoryValue,
+        category,
+        privacy,
+        timestamp: new Date().toISOString(),
+        likes: 0,
+        comments: [],
+        attachments: []
+      };
+      
+      // إضافة الاستطلاع إذا كان موجود
+      const pollContainer = document.getElementById('poll-container');
+      if (pollContainer.style.display === 'block') {
+        const pollQuestion = document.getElementById('poll-question').value.trim();
+        if (!pollQuestion) {
+          alert('يرجى كتابة سؤال الاستطلاع');
+          return;
+        }
+        
+        const options = [];
+        document.querySelectorAll('#poll-options .poll-option').forEach(input => {
+          if (input.value.trim()) {
+            options.push({
+              text: input.value.trim(),
+              votes: 0
+            });
+          }
+        });
+        
+        if (options.length < 2) {
+          alert('يرجى إضافة خيارين على الأقل للاستطلاع');
+          return;
+        }
+        
+        post.poll = {
+          question: pollQuestion,
+          options: options
+        };
+      }
+      
+      // إضافة المرفقات
+      const attachments = document.querySelectorAll('.preview-item');
+      if (attachments.length > 0) {
+        attachments.forEach(item => {
+          const img = item.querySelector('img');
+          post.attachments.push({
+            type: img.alt.includes('صورة') ? 'photo' : 'video',
+            url: img.src
+          });
+        });
+      }
+      
+      // عرض مؤشر التحميل
+      const submitBtn = document.getElementById('submit-btn');
+      const loader = document.getElementById('loader');
+      submitBtn.disabled = true;
+      loader.style.display = 'inline-block';
+      
+      // محاكاة حفظ البيانات
+      setTimeout(() => {
+        // حفظ في Local Storage
+        const existingPosts = JSON.parse(localStorage.getItem('posts') || '[]');
+        existingPosts.unshift(post);
+        localStorage.setItem('posts', JSON.stringify(existingPosts));
+        
+        // إظهار رسالة النجاح
+        showToast('تم نشر المشاركة بنجاح!');
+        
+        // إعادة تعيين النموذج
+        document.getElementById('post-content').value = '';
+        document.getElementById('mainType').selectedIndex = 0;
+        document.getElementById('country-group').style.display = 'none';
+        document.getElementById('topic-group').style.display = 'none';
+        document.getElementById('poll-container').style.display = 'none';
+        document.getElementById('attachment-preview').style.display = 'none';
+        document.getElementById('attachment-preview').innerHTML = '';
+        document.getElementById('char-count').textContent = '0/500 حرف';
+        document.getElementById('char-count').style.color = '#777';
+        
+        // إخفاء مؤشر التحميل
+        submitBtn.disabled = false;
+        loader.style.display = 'none';
+        
+        // توجيه المستخدم بعد 2 ثانية
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 2000);
+      }, 1500);
+    }
+    
+    // إظهار رسالة تنبيه
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = toast.querySelector('.toast-message');
+      
+      // تحديث الرسالة
+      toastMessage.textContent = message;
+      
+      // إظهار التنبيه
+      toast.classList.add('show');
+      
+      // إخفاء التنبيه بعد 3 ثوان
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>

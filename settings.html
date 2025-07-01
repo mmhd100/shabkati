@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الإعدادات - شبكتي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #0D47A1;
+      --secondary-color: #1E88E5;
+      --light-blue: #e3f2fd;
+      --gray-bg: #f5f7fa;
+      --dark-text: #2d3748;
+      --light-text: #718096;
+      --border-color: #e2e8f0;
+      --success-color: #48bb78;
+      --warning-color: #ecc94b;
+      --danger-color: #e53e3e;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Cairo', sans-serif;
+    }
+    
+    body {
+      background-color: var(--gray-bg);
+      color: var(--dark-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* التصميم العلوي */
+    .top-bar {
+      background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    .logo i {
+      font-size: 1.8rem;
+    }
+    
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+    }
+    
+    .nav-icon {
+      font-size: 1.2rem;
+      color: white;
+      text-decoration: none;
+    }
+    
+    /* الهيكل الرئيسي */
+    .main-container {
+      display: flex;
+      flex: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 20px;
+    }
+    
+    /* الشريط الجانبي */
+    .sidebar {
+      width: 250px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      padding: 20px 0;
+      margin-left: 20px;
+      height: fit-content;
+    }
+    
+    .sidebar-item {
+      padding: 15px 25px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      color: var(--light-text);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border-right: 3px solid transparent;
+    }
+    
+    .sidebar-item:hover, .sidebar-item.active {
+      background-color: var(--light-blue);
+      color: var(--primary-color);
+      border-right-color: var(--primary-color);
+    }
+    
+    .sidebar-item i {
+      font-size: 1.2rem;
+      width: 24px;
+      text-align: center;
+    }
+    
+    /* محتوى الإعدادات */
+    .settings-content {
+      flex: 1;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      padding: 30px;
+      overflow: hidden;
+    }
+    
+    .section-title {
+      font-size: 1.8rem;
+      color: var(--primary-color);
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .section-title i {
+      background: var(--light-blue);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: var(--primary-color);
+    }
+    
+    /* بطاقة المستخدم */
+    .profile-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 25px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .profile-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--light-blue);
+      margin-bottom: 15px;
+    }
+    
+    .profile-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+    
+    .profile-email {
+      color: var(--light-text);
+      margin-bottom: 15px;
+    }
+    
+    .profile-stats {
+      display: flex;
+      gap: 30px;
+      margin-top: 15px;
+    }
+    
+    .stat-item {
+      text-align: center;
+    }
+    
+    .stat-number {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--light-text);
+    }
+    
+    /* نماذج الإعدادات */
+    .settings-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--dark-text);
+    }
+    
+    .input-with-icon {
+      position: relative;
+    }
+    
+    .input-with-icon i {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      color: var(--light-text);
+    }
+    
+    .settings-form input, 
+    .settings-form select {
+      width: 100%;
+      padding: 14px 15px 14px 45px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .settings-form input:focus, 
+    .settings-form select:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.1);
+      outline: none;
+    }
+    
+    .form-section {
+      background: var(--gray-bg);
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+    
+    .form-section-title {
+      font-size: 1.4rem;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .form-section-title i {
+      color: var(--secondary-color);
+    }
+    
+    /* أزرار */
+    .btn {
+      padding: 14px 25px;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .btn-primary {
+      background: var(--primary-color);
+      color: white;
+      box-shadow: 0 4px 8px rgba(13, 71, 161, 0.2);
+    }
+    
+    .btn-primary:hover {
+      background: #0b3d91;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(13, 71, 161, 0.3);
+    }
+    
+    .btn-outline {
+      background: transparent;
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+    }
+    
+    .btn-outline:hover {
+      background: var(--light-blue);
+    }
+    
+    .btn-danger {
+      background: var(--danger-color);
+      color: white;
+    }
+    
+    .btn-danger:hover {
+      background: #c53030;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 30px;
+      justify-content: flex-end;
+    }
+    
+    /* التذييل */
+    .footer {
+      text-align: center;
+      padding: 20px;
+      color: var(--light-text);
+      background: white;
+      margin-top: 40px;
+      border-top: 1px solid var(--border-color);
+    }
+    
+    /* التنبيهات */
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 25px;
+      border-radius: 8px;
+      background: white;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      z-index: 1000;
+      transform: translateX(150%);
+      transition: transform 0.5s ease;
+    }
+    
+    .toast.show {
+      transform: translateX(0);
+    }
+    
+    .toast i {
+      font-size: 1.5rem;
+    }
+    
+    .toast.success {
+      border-left: 4px solid var(--success-color);
+    }
+    
+    .toast.success i {
+      color: var(--success-color);
+    }
+    
+    .toast.error {
+      border-left: 4px solid var(--danger-color);
+    }
+    
+    .toast.error i {
+      color: var(--danger-color);
+    }
+    
+    /* تحسينات للجوال */
+    @media (max-width: 992px) {
+      .settings-form {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+      }
+      
+      .sidebar {
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 20px;
+      }
+      
+      .profile-stats {
+        gap: 15px;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+    }
+    
+    /* الرسوم المتحركة */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .profile-card, .form-section {
+      animation: fadeIn 0.6s ease forwards;
+    }
+    
+    .form-section:nth-child(1) { animation-delay: 0.1s; }
+    .form-section:nth-child(2) { animation-delay: 0.2s; }
+    .form-section:nth-child(3) { animation-delay: 0.3s; }
+  </style>
+</head>
+<body>
+  <!-- شريط التنقل العلوي -->
+  <div class="top-bar">
+    <div class="logo">
+      <i class="fas fa-users"></i>
+      <span>شبكتي</span>
+    </div>
+    <div class="user-menu">
+  <a href="index.html" class="nav-icon" title="الصفحة الرئيسية">
+    <i class="fas fa-home"></i>
+  </a>
+     <a href="create-post.html" class="nav-icon" title="إنشاء مشاركة">
+    <i class="fas fa-plus"></i>
+  </a>
+      <a href="settings.html" class="nav-icon" title="الإعدادات">
+        <i class="fas fa-cog"></i>
+      </a>
+      <img id="current-avatar" class="user-avatar" src="" alt="صورة المستخدم">
+    </div>
+  </div>
+  
+  <!-- المحتوى الرئيسي -->
+  <div class="main-container">
+    <!-- الشريط الجانبي -->
+    <div class="sidebar">
+      <a href="#" class="sidebar-item active">
+        <i class="fas fa-user-circle"></i>
+        <span>معلومات الحساب</span>
+      </a>
+      <a href="#" class="sidebar-item">
+        <i class="fas fa-lock"></i>
+        <span>الأمان</span>
+      </a>
+      <a href="#" class="sidebar-item">
+        <i class="fas fa-bell"></i>
+        <span>الإشعارات</span>
+      </a>
+      <a href="#" class="sidebar-item">
+        <i class="fas fa-eye"></i>
+        <span>الخصوصية</span>
+      </a>
+      <a href="#" class="sidebar-item">
+        <i class="fas fa-users"></i>
+        <span>إدارة الحسابات</span>
+      </a>
+      <a href="#" class="sidebar-item">
+        <i class="fas fa-palette"></i>
+        <span>المظهر</span>
+      </a>
+      <a href="#" class="sidebar-item">
+        <i class="fas fa-language"></i>
+        <span>اللغة</span>
+      </a>
+      <a href="#" class="sidebar-item">
+        <i class="fas fa-question-circle"></i>
+        <span>المساعدة</span>
+      </a>
+    </div>
+    
+    <!-- محتوى الإعدادات -->
+    <div class="settings-content">
+      <h1 class="section-title">
+        <i class="fas fa-user-cog"></i>
+        إعدادات الحساب
+      </h1>
+      
+      <!-- بطاقة المستخدم -->
+      <div class="profile-card">
+        <img id="profile-avatar" class="profile-avatar" src="" alt="صورة الحساب">
+        <h2 id="profile-name" class="profile-name">محمد أحمد</h2>
+        <p id="profile-email" class="profile-email">mohamed@example.com</p>
+        <button class="btn btn-outline">
+          <i class="fas fa-camera"></i> تغيير الصورة
+        </button>
+        
+        <div class="profile-stats">
+          <div class="stat-item">
+            <div class="stat-number">245</div>
+            <div class="stat-label">الأصدقاء</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">47</div>
+            <div class="stat-label">المجموعات</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">1.2K</div>
+            <div class="stat-label">المتابعون</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- نموذج المعلومات الشخصية -->
+      <div class="form-section">
+        <h3 class="form-section-title">
+          <i class="fas fa-user-edit"></i>
+          المعلومات الشخصية
+        </h3>
+        
+        <form id="profile-form" class="settings-form">
+          <div class="form-group">
+            <label for="name">الاسم الكامل</label>
+            <div class="input-with-icon">
+              <i class="fas fa-user"></i>
+              <input type="text" id="name" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="email">البريد الإلكتروني</label>
+            <div class="input-with-icon">
+              <i class="fas fa-envelope"></i>
+              <input type="email" id="email" required>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="phone">رقم الجوال</label>
+            <div class="input-with-icon">
+              <i class="fas fa-mobile-alt"></i>
+              <input type="tel" id="phone" placeholder="+966 5X XXX XXXX">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="birthdate">تاريخ الميلاد</label>
+            <div class="input-with-icon">
+              <i class="fas fa-birthday-cake"></i>
+              <input type="date" id="birthdate">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="gender">الجنس</label>
+            <div class="input-with-icon">
+              <i class="fas fa-venus-mars"></i>
+              <select id="gender">
+                <option value="">اختر الجنس</option>
+                <option value="male">ذكر</option>
+                <option value="female">أنثى</option>
+                <option value="other">أخرى</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="bio">نبذة عنك</label>
+            <div class="input-with-icon">
+              <i class="fas fa-info-circle"></i>
+              <input type="text" id="bio" placeholder="اكتب نبذة مختصرة عنك">
+            </div>
+          </div>
+        </form>
+      </div>
+      
+      <!-- قسم تغيير كلمة المرور -->
+      <div class="form-section">
+        <h3 class="form-section-title">
+          <i class="fas fa-lock"></i>
+          الأمان وكلمة المرور
+        </h3>
+        
+        <form id="password-form" class="settings-form">
+          <div class="form-group">
+            <label for="current-password">كلمة المرور الحالية</label>
+            <div class="input-with-icon">
+              <i class="fas fa-key"></i>
+              <input type="password" id="current-password">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="new-password">كلمة المرور الجديدة</label>
+            <div class="input-with-icon">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="new-password">
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="confirm-password">تأكيد كلمة المرور الجديدة</label>
+            <div class="input-with-icon">
+              <i class="fas fa-lock"></i>
+              <input type="password" id="confirm-password">
+            </div>
+          </div>
+        </form>
+      </div>
+      
+      <!-- قسم تفضيلات الإشعارات -->
+      <div class="form-section">
+        <h3 class="form-section-title">
+          <i class="fas fa-bell"></i>
+          تفضيلات الإشعارات
+        </h3>
+        
+        <div class="settings-form">
+          <div class="form-group">
+            <div class="preference-item">
+              <input type="checkbox" id="notif-email" checked>
+              <label for="notif-email">الإشعارات عبر البريد الإلكتروني</label>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <div class="preference-item">
+              <input type="checkbox" id="notif-sms" checked>
+              <label for="notif-sms">الإشعارات عبر الرسائل القصيرة</label>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <div class="preference-item">
+              <input type="checkbox" id="notif-app" checked>
+              <label for="notif-app">الإشعارات داخل التطبيق</label>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <div class="preference-item">
+              <input type="checkbox" id="notif-friend" checked>
+              <label for="notif-friend">إشعارات صداقة جديدة</label>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <div class="preference-item">
+              <input type="checkbox" id="notif-comment" checked>
+              <label for="notif-comment">إشعارات التعليقات</label>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <div class="preference-item">
+              <input type="checkbox" id="notif-like" checked>
+              <label for="notif-like">إشعارات الإعجابات</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- أزرار الإجراءات -->
+      <div class="action-buttons">
+        <button class="btn btn-primary" onclick="updateProfile()">
+          <i class="fas fa-save"></i> حفظ التغييرات
+        </button>
+        <button class="btn btn-outline" onclick="resetForm()">
+          <i class="fas fa-undo"></i> إعادة تعيين
+        </button>
+        <button class="btn btn-danger" onclick="showLogoutConfirm()">
+          <i class="fas fa-sign-out-alt"></i> تسجيل الخروج
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- تذييل الصفحة -->
+  <div class="footer">
+    <p>© 2023 شبكتي. جميع الحقوق محفوظة.</p>
+    <p>شروط الاستخدام | سياسة الخصوصية | مركز المساعدة</p>
+  </div>
+  
+  <!-- تنبيهات -->
+  <div id="toast" class="toast">
+    <i class="fas fa-check-circle"></i>
+    <div class="toast-message">تم تحديث معلوماتك بنجاح!</div>
+  </div>
+  
+  <script>
+    // تهيئة بيانات المستخدم
+    document.addEventListener('DOMContentLoaded', function() {
+      // الحصول على بيانات المستخدم من localStorage
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+      
+      if (!user) {
+        alert('يرجى تسجيل الدخول أولاً');
+        window.location.href = 'login.html';
+        return;
+      }
+      
+      // تعبئة بيانات المستخدم في الصفحة
+      document.getElementById('name').value = user.name || '';
+      document.getElementById('email').value = user.email || '';
+      document.getElementById('phone').value = user.phone || '';
+      document.getElementById('birthdate').value = user.birthdate || '';
+      document.getElementById('gender').value = user.gender || '';
+      document.getElementById('bio').value = user.bio || '';
+      
+      // تحديث الصور
+      document.getElementById('profile-avatar').src = user.avatar || 'https://i.pravatar.cc/200';
+      document.getElementById('current-avatar').src = user.avatar || 'https://i.pravatar.cc/200';
+      
+      // تحديث الاسم والبريد الإلكتروني
+      document.getElementById('profile-name').textContent = user.name || 'مستخدم جديد';
+      document.getElementById('profile-email').textContent = user.email || 'بريد إلكتروني غير محدد';
+      
+      // تعبئة تفضيلات الإشعارات
+      if (user.notifications) {
+        document.getElementById('notif-email').checked = user.notifications.email || false;
+        document.getElementById('notif-sms').checked = user.notifications.sms || false;
+        document.getElementById('notif-app').checked = user.notifications.app || false;
+        document.getElementById('notif-friend').checked = user.notifications.friend || false;
+        document.getElementById('notif-comment').checked = user.notifications.comment || false;
+        document.getElementById('notif-like').checked = user.notifications.like || false;
+      }
+    });
+    
+    // تحديث ملف المستخدم الشخصي
+    function updateProfile() {
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+      
+      // تحديث البيانات
+      user.name = document.getElementById('name').value;
+      user.email = document.getElementById('email').value;
+      user.phone = document.getElementById('phone').value;
+      user.birthdate = document.getElementById('birthdate').value;
+      user.gender = document.getElementById('gender').value;
+      user.bio = document.getElementById('bio').value;
+      
+      // تحديث تفضيلات الإشعارات
+      user.notifications = {
+        email: document.getElementById('notif-email').checked,
+        sms: document.getElementById('notif-sms').checked,
+        app: document.getElementById('notif-app').checked,
+        friend: document.getElementById('notif-friend').checked,
+        comment: document.getElementById('notif-comment').checked,
+        like: document.getElementById('notif-like').checked
+      };
+      
+      // تحديث localStorage
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      
+      // إظهار رسالة النجاح
+      showToast('تم تحديث معلوماتك بنجاح!', 'success');
+      
+      // تحديث عرض البيانات
+      document.getElementById('profile-name').textContent = user.name;
+      document.getElementById('profile-email').textContent = user.email;
+    }
+    
+    // إعادة تعيين النموذج
+    function resetForm() {
+      const user = JSON.parse(localStorage.getItem('currentUser'));
+      
+      document.getElementById('name').value = user.name || '';
+      document.getElementById('email').value = user.email || '';
+      document.getElementById('phone').value = user.phone || '';
+      document.getElementById('birthdate').value = user.birthdate || '';
+      document.getElementById('gender').value = user.gender || '';
+      document.getElementById('bio').value = user.bio || '';
+      
+      showToast('تم إعادة تعيين النموذج', 'success');
+    }
+    
+    // إظهار تأكيد تسجيل الخروج
+    function showLogoutConfirm() {
+      if (confirm('هل أنت متأكد أنك تريد تسجيل الخروج؟')) {
+        localStorage.removeItem('currentUser');
+        window.location.href = 'login.html';
+      }
+    }
+    
+    // إظهار رسالة تنبيه
+    function showToast(message, type) {
+      const toast = document.getElementById('toast');
+      const toastIcon = toast.querySelector('i');
+      const toastMessage = toast.querySelector('.toast-message');
+      
+      // تحديث الرسالة والنوع
+      toastMessage.textContent = message;
+      toast.className = `toast ${type}`;
+      
+      // إظهار التنبيه
+      toast.classList.add('show');
+      
+      // إخفاء التنبيه بعد 3 ثوان
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+    
+    // محاكاة تغيير الصورة
+    document.querySelector('.btn-outline').addEventListener('click', function(e) {
+      e.preventDefault();
+      // في التطبيق الحقيقي، هنا سيتم فتح نافذة لاختيار صورة
+      showToast('تم فتح نافذة اختيار صورة جديدة', 'success');
+    });
+  </script>
+</body>
+</html>
